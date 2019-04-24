@@ -1,25 +1,23 @@
 package br.com.senai.fatesg.controleponto.controle;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.senai.fatesg.controleponto.entidade.JornadaTrabalho;
 import br.com.senai.fatesg.controleponto.persistencia.JornadaTrabalhoDao;
 
 
+//@Scope("conversation")
 @Named("JornadaTrabalhoControl")
-@Scope("conversation")
+@ViewScoped
 public class JornadaTrabalhoControl {
 	
 
@@ -67,6 +65,7 @@ public class JornadaTrabalhoControl {
 				
 		}
 	}
+	
 	public void confirmar(ActionEvent evt) {
 		try {
 			jornadaTrabalho.mostraDias();
@@ -141,7 +140,15 @@ public class JornadaTrabalhoControl {
 		}
 	}
 	
-	
+	public List<JornadaTrabalho> listAutoComplete() {
+		try {
+			return 	jornadasTrabalhos = jornadaTrabalhoDao.listar();
+			
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e);
+		}
+		return jornadasTrabalhos;
+	}
 	
 	public List<String> getJornadas() {
 		return jornadas;

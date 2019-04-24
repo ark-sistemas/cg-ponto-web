@@ -1,29 +1,67 @@
 package br.com.senai.fatesg.controleponto.entidade;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Empresa {
 	
 	@Id
+	@GeneratedValue(generator="id_seq", strategy=GenerationType.SEQUENCE)
+	@SequenceGenerator(name="id_seq", sequenceName="id_seq", allocationSize=1, initialValue=1)
 	private long id;
 	
+	@Column(name = "cnpj", length = 14, nullable = false)
 	private long cnpj;
+	
+	@Column(name = "razaosocial", length = 50, nullable = false)
 	private String razaoSocial;
+	
+	@Column(name = "nomeFantasia", length = 50, nullable = false)
 	private String nomeFantasia;
+	
+	@Column(name = "logradouro", length = 50, nullable = false)
 	private String logradouro;
+	
+	@Column(name = "numero", length = 8, nullable = false)
 	private String numero;
+	
+	@Column(name = "complemento", length = 50, nullable = false)
 	private String complemento;
+	
+	@Column(name = "bairro", length = 50, nullable = false)
 	private String bairro;
+	
+	@Column(name = "cidade", length = 30, nullable = false)
 	private String cidade;
+	
+	@Column(name = "estado", length = 2, nullable = false)
 	private String estado;
+	
+	@Column(name = "cep", length = 10, nullable = false)
 	private String cep;
+	
+	@Column(name = "inscricaoEstadual", length = 12, nullable = false)
 	private String inscricaoEstadual;
+	
+	@Column(name = "email", length = 50, nullable = false)
 	private String email;
+	
+	@Column(name = "telefone", length = 12, nullable = false)
 	private String telefone;
+	
+	@Column(name = "site", length = 50, nullable = false)
 	private String site;
+	
+	@Column(name = "redeSocial", length = 50, nullable = false)
 	private String redeSocial;
+	
+	@Column(name = "porcetagemHorasExtras", length = 5, nullable = false)
 	private Double porcentagemHorasExtras;
 	
 	

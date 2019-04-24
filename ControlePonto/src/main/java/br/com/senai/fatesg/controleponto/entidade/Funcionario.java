@@ -1,68 +1,89 @@
 package br.com.senai.fatesg.controleponto.entidade;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.ForeignKey;
 
 @Entity
+@Table(name = "Funcionario")
 public class Funcionario {
 	@Id
 	@GeneratedValue(generator = "funcionario_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "funcionario_seq", sequenceName = "funcionario_seq", allocationSize = 1, initialValue = 1)
 	private Integer id;
 
+	@Column(name = "nome", length = 50, nullable = false)
 	private String nome;
-
+	
+	@Column(name = "logradouro", length = 30, nullable = false)
 	private String logradouro;
-
+	
+	@Column(name = "numero", length = 7, nullable = false)
 	private String numero;
-
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "dataNascimento", length = 8, nullable = false)
+	private Date dataNascimento;
+	
+	@Column(name = "estadoCivil", length = 30, nullable = false)
+	private String estadoCivil;
+	
+	@Column(name = "complemento", length = 50, nullable = false)
 	private String complemento;
 
+	@Column(name = "bairro", length = 30, nullable = false)
 	private String bairro;
 
+	@Column(name = "cidade", length = 40, nullable = false)
 	private String cidade;
 
+	@Column(name = "estado", length = 30, nullable = false)
 	private String estado;
 
+	@Column(name = "cep", length = 20, nullable = false)
 	private String cep;
 
+	@Column(name = "telefone", length = 20, nullable = false)
 	private String telefone;
 
+	@Column(name = "celular", length = 20, nullable = false)
 	private String celular;
 
+	@Column(name = "cpf", length = 15, nullable = false)
 	private String cpf;
 
+	@Column(name = "bancoHoras", length = 20, nullable = false)
 	private String bancoHoras;
 
-	private Integer jornadaTrabalho;
-
-	private String rfid;
-
+	@Column(name = "papel", length = 30, nullable = false)
 	private String papel;
 
-	private String status;
-	
-	private int horasDiarias;
+	@Column(name="Status", length=1, nullable=false)
+	private char status;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "funcionario")
-	private List<JornadaTrabalho> jornadasDeTrabalho;
+	//@Basic
+	//@ForeignKey(name = "jornada_fk")
+	@ManyToOne
+	@JoinColumn(name = "jornada", nullable = false)
+	private JornadaTrabalho jornada = new JornadaTrabalho();
 	
-	
-	private String[] jornada;
-	
-	private String mostraJornada = "";
 	
 	@ManyToMany(cascade = { 
 	        CascadeType.PERSIST, 
@@ -76,41 +97,66 @@ public class Funcionario {
 	        inverseJoinColumns = @JoinColumn(name = "idJustificativaAbono")
 	    )
 	private List<JustificativaAbono> justificativasAbonos;
+	
+	public Funcionario() {
+		super();
+	}
+	
+	
+	public Funcionario(Integer id, String nome, String logradouro, String numero, Date dataNascimento,
+			String estadoCivil, String complemento, String bairro, String cidade, String estado, String cep,
+			String telefone, String celular, String cpf, String bancoHoras, String papel, char status,
+			JornadaTrabalho jornada, List<JustificativaAbono> justificativasAbonos) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.logradouro = logradouro;
+		this.numero = numero;
+		this.dataNascimento = dataNascimento;
+		this.estadoCivil = estadoCivil;
+		this.complemento = complemento;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.cep = cep;
+		this.telefone = telefone;
+		this.celular = celular;
+		this.cpf = cpf;
+		this.bancoHoras = bancoHoras;
+		this.papel = papel;
+		this.status = status;
+		this.jornada = jornada;
+		this.justificativasAbonos = justificativasAbonos;
+	}
+	
+	
 
-	
-	
-	
-	public String getMostraJornada() {
-		return mostraJornada;
-	}
-	
-	public void mostraJornada()
-	{
-		for (int i = 0; i < jornada.length; i++) {
-			System.out.println(jornada[i]);
-			mostraJornada+=jornada[i];
-		}
-		
-	}
-	
-	public void setMostraJornada(String mostraJornada) {
-		this.mostraJornada = mostraJornada;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
 
-	public String[] getJornada() {
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+
+	public String getEstadoCivil() {
+		return estadoCivil;
+	}
+
+
+	public void setEstadoCivil(String estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+
+
+	public JornadaTrabalho getJornada() {
 		return jornada;
 	}
 
-	public void setJornada(String[] jornada) {
+	public void setJornada(JornadaTrabalho jornada) {
 		this.jornada = jornada;
-	}
-
-	public List<JornadaTrabalho> getJornadasDeTrabalho() {
-		return jornadasDeTrabalho;
-	}
-
-	public void setJornadasDeTrabalho(List<JornadaTrabalho> jornadasDeTrabalho) {
-		this.jornadasDeTrabalho = jornadasDeTrabalho;
 	}
 
 	public List<JustificativaAbono> getJustificativasAbonos() {
@@ -119,6 +165,10 @@ public class Funcionario {
 
 	public void setJustificativasAbonos(List<JustificativaAbono> justificativasAbonos) {
 		this.justificativasAbonos = justificativasAbonos;
+	}
+
+	public void setStatus(char status) {
+		this.status = status;
 	}
 
 	public Integer getId() {
@@ -225,22 +275,6 @@ public class Funcionario {
 		this.bancoHoras = bancoHoras;
 	}
 
-	public Integer getJornadaTrabalho() {
-		return jornadaTrabalho;
-	}
-
-	public void setJornadaTrabalho(Integer jornadaTrabalho) {
-		this.jornadaTrabalho = jornadaTrabalho;
-	}
-
-	public String getRfid() {
-		return rfid;
-	}
-
-	public void setRfid(String rfid) {
-		this.rfid = rfid;
-	}
-
 	public String getPapel() {
 		return papel;
 	}
@@ -249,20 +283,54 @@ public class Funcionario {
 		this.papel = papel;
 	}
 
-	public String getStatus() {
-		return status;
+	public boolean getStatus() {
+		if(this.status == '1') {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	public void setStatus(boolean status) {
+		if(status == true) {
+			this.status = '1';
+		}else {
+			this.status = '0';
+		}
+	}
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Funcionario other = (Funcionario) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
-	public int getHorasDiarias() {
-		return horasDiarias;
+	@Override
+	public String toString() {
+		return getNome();
 	}
 
-	public void setHorasDiarias(int horasDiarias) {
-		this.horasDiarias = horasDiarias;
-	}
+	
 
+	
+	
 }

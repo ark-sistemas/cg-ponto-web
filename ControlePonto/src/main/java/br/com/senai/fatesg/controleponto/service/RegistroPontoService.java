@@ -19,20 +19,20 @@ public class RegistroPontoService {
 	
 	// URI:
     // /contextPath/servletPath/registroPontos
-    @GET
+    /*@GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public List<AjusteDeRegistro> getAjusteDeRegistro_JSON() {
         List<AjusteDeRegistro> listOfCountries = AjusteDeRegistroControl.getAllAjusteDeRegistros();
         return listOfCountries;
-    }
+    }*/
 	
  // URI:
     // /contextPath/servletPath/registroPontos/{empNo}
-    @GET
+    /*@GET
     @Path("/{registroId}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public AjusteDeRegistro getAjusteDeRegistro(@PathParam("empNo") String empNo) {
-        return AjusteDeRegistroControl.getAjusteDeRegistro(empNo);
+        return AjusteDeRegistroControl;
     }
  
     // URI:
@@ -56,5 +56,5 @@ public class RegistroPontoService {
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public void deleteAjusteDeRegistro(@PathParam("empNo") String empNo) {
     	AjusteDeRegistroControl.deleteAjusteDeRegistro(empNo);
-    }
+    }*/
 }

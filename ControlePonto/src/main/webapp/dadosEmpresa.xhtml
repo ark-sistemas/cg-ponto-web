@@ -12,17 +12,14 @@
 				columnClasses="ui-g-12 ui-md-2,ui-md-3,ui-g-12 ui-md-2"
 				layout="grid" style="border:0px none; background-color:transparent;">
 
-				<h:outputText value="Razão Social :"></h:outputText>
-				<p:inputText value="#{EmpresaControl.empresa.razaoSocial}"
-					maxlength="50"></p:inputText>
+				<h:outputText value="Razão Social :"/>
+				<h:outputText value="#{EmpresaControl.empresa.razaoSocial}"/>
 
 				<h:outputText value="CNPJ:"></h:outputText>
-				<p:inputText value="#{EmpresaControl.empresa.cnpj}" maxlength="14"
-				mask="99.999.999/9999-99"></p:inputText>
+				<h:outputText value="#{EmpresaControl.empresa.cnpj}"></h:outputText>
 
 				<h:outputText value="Inscrição Estadual:"></h:outputText>
-				<p:inputText value="#{EmpresaControl.empresa.inscricaoEstadual}"
-					maxlength="10"></p:inputText>
+				<h:outputText value="#{EmpresaControl.empresa.inscricaoEstadual}"></h:outputText>
 
 				<h:outputText value="Nome Fantasia:"></h:outputText>
 				<p:inputText value="#{EmpresaControl.empresa.nomeFantasia}"
@@ -209,12 +206,6 @@
 					<h:outputText value="Porcentagem Horas extras"></h:outputText>
 				</f:facet>
 				<h:outputText value="#{emp.porcentagemHorasExtras}"></h:outputText>
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-				</f:facet>
-				<p:commandButton actionListener="#{EmpresaControl.excluir(emp) }"
-					value="Excluir" update=":formCorpo:empresa "></p:commandButton>
 			</p:column>
 		</p:dataTable>
 	</ui:define>

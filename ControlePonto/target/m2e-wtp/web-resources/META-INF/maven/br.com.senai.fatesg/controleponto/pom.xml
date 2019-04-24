@@ -28,11 +28,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>br.com.ambientinformatica</groupId>
-			<artifactId>ambient-corporativo</artifactId>
-			<version>1.0.11</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
@@ -126,14 +121,13 @@
 			<version>1.19.2</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.eclipse.paho/org.eclipse.paho.client.mqttv3 -->
 		<dependency>
 			<groupId>org.eclipse.paho</groupId>

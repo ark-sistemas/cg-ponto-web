@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -14,13 +15,15 @@ import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.senai.fatesg.controleponto.entidade.JustificativaAbono;
 import br.com.senai.fatesg.controleponto.entidade.Usuario;
 import br.com.senai.fatesg.controleponto.persistencia.JustificativaAbonoDao;
+import br.com.senai.fatesg.controleponto.util.BytesUtilJalis;
 
 @Named("JustificativaAbonoControl")
 @Scope("conversation")
 public class JustificativaAbonoControl {
 
 	private JustificativaAbono justificativaAbono = new JustificativaAbono();
-	
+	private Object obj = new Object();
+	private Part arquivo;
 	@Autowired
 	private JustificativaAbonoDao justificativaAbonoDao;
 	 
@@ -53,6 +56,7 @@ public class JustificativaAbonoControl {
 	}
 	public void incluir(ActionEvent evt){
 		try {
+			justificativaAbono.setAnexoDocumento(BytesUtilJalis.toByteArray(obj));
 			Usuario usuarioLogado = UsuarioLogadoControl.getUsuarioLogado();
 			justificativaAbono.setUsuarioLogado(usuarioLogado);
 			justificativaAbonoDao.incluir(justificativaAbono);
@@ -64,19 +68,48 @@ public class JustificativaAbonoControl {
 	}
 	public void alterar(ActionEvent evt) {
 		try {
+			
+			Usuario usuarioLogado = UsuarioLogadoControl.getUsuarioLogado();
+			justificativaAbono.setUsuarioLogado(usuarioLogado);
 			justificativaAbonoDao.alterar(justificativaAbono);
 			listar(evt);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
-	
+	public void upload() {
+		try {
+			byte[] arquivoByte = BytesUtilJalis.toByteArray(arquivo.getInputStream());
+			justificativaAbono.setAnexoDocumento(arquivoByte);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	public void listar(ActionEvent evt){
 		try {
 			justificativaAbonos = justificativaAbonoDao.listar();
 		} catch (Exception e) {
 		   UtilFaces.addMensagemFaces(e);
 		}
+	}
+	
+	
+	
+	public Part getArquivo() {
+		return arquivo;
+	}
+
+	public void setArquivo(Part arquivo) {
+		this.arquivo = arquivo;
+	}
+
+	public Object getObj() {
+		return obj;
+	}
+	
+	public void setObj(Object obj) {
+		this.obj = obj;
 	}
 	
 	public JustificativaAbono getJustificativaAbono() {

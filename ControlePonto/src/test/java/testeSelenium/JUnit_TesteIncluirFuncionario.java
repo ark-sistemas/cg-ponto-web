@@ -34,8 +34,8 @@ public class JUnit_TesteIncluirFuncionario {
 		funcionario.setCelular("celular TESTE");
 		funcionario.setCpf("cpf TESTE");
 		funcionario.setBancoHoras("bancoHoras TESTE");
-		funcionario.setJornadaTrabalho(123);
-		funcionario.setRfid("rfid TESTE");
+		//funcionario.setJornadaTrabalho(123);
+		//funcionario.setRfid("rfid TESTE");
 		funcionario.setPapel("papel TESTE");
 		
 		assertNull(funcionario);

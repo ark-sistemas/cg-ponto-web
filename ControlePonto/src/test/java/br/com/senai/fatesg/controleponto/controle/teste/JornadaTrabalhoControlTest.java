@@ -22,10 +22,11 @@ public class JornadaTrabalhoControlTest {
 	public void testIncluirJornada() {
 		Funcionario funcionario = new Funcionario();
 		System.out.println("estou aqui");
-		
+		/*
 		for (int i = 0; i < funcionario.getJornadasDeTrabalho().size(); i++) {
 			System.out.println("Jornada "+funcionario.getJornadasDeTrabalho().get(i));
 		}
+		*/
 		/*
 		String[] dias = { "Segunda", "Terça" };
 		JornadaTrabalho jornada = new JornadaTrabalho();

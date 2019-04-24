@@ -10,7 +10,7 @@ public class CalculoHoras {
 	
 	public double apontamentoHoras(Integer codigoJornadaTrabalho, String primeiraEntrada, String primeiraSaida, String segundaEntrada, String SegundaSaida) throws ParseException{
 		
-		JornadaTrabalho jornada = new JornadaTrabalho(codigoJornadaTrabalho);
+		JornadaTrabalho jornada = new JornadaTrabalho();
 		
 		
 		jornada.getId();

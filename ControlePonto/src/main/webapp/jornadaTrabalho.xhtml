@@ -11,11 +11,6 @@
 			<p:panel header="Cadastro Jornada de Trabalho" id="panel">
 
 				<h:panelGrid columns="2">
-					<h:outputLabel value="ID:" />
-					<p:inputText id="id" required="false" label="id"
-						value="#{JornadaTrabalhoControl.jornadaTrabalho.id }" ></p:inputText>
-					<p:watermark for="id" value="Usado P/ Excluir e Alterar" />
-					<p:message for="id" showDetail="true" />
 
 					<h:outputText value="Descrição:"></h:outputText>
 					<p:inputText 
@@ -32,7 +27,8 @@
 					<p:selectCheckboxMenu id="multiple"
 						value="#{JornadaTrabalhoControl.jornadaTrabalho.diasDaSemana}"
 						label="Semana" multiple="true" filter="true" required="true"
-						filterMatchMode="startsWith" panelStyle="width:250px" requiredMessage="Campo Dias da Semana deve ser preenchido.">
+						filterMatchMode="startsWith" panelStyle="width:250px" 
+					 	requiredMessage="Campo Dias da Semana deve ser preenchido.">
 						<f:selectItems value="#{JornadaTrabalhoControl.diasSemana}" />
 					</p:selectCheckboxMenu>
 
