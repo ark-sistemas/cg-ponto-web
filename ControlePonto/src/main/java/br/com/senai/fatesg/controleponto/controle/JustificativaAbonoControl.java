@@ -1,5 +1,8 @@
 package br.com.senai.fatesg.controleponto.controle;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,24 +71,37 @@ public class JustificativaAbonoControl {
 	}
 	public void alterar(ActionEvent evt) {
 		try {
-			
+			upload();
 			Usuario usuarioLogado = UsuarioLogadoControl.getUsuarioLogado();
 			justificativaAbono.setUsuarioLogado(usuarioLogado);
 			justificativaAbonoDao.alterar(justificativaAbono);
 			listar(evt);
+			justificativaAbono = new JustificativaAbono(); 
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
 	public void upload() {
 		try {
-			byte[] arquivoByte = BytesUtilJalis.toByteArray(arquivo.getInputStream());
+			byte[] arquivoByte = toByteArrayUsingJava(arquivo.getInputStream());
+			//byte[] arquivoByte = BytesUtilJalis.toByteArray(arquivo.getInputStream());
 			justificativaAbono.setAnexoDocumento(arquivoByte);
 			
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
+	
+	public byte[] toByteArrayUsingJava(InputStream is) throws IOException {
+		ByteArrayOutputStream boas = new ByteArrayOutputStream();
+		int read = is.read();
+		while (read != -1) {
+			boas.write(read);
+			read = is.read();
+		}
+		return boas.toByteArray();
+	}
+	
 	public void listar(ActionEvent evt){
 		try {
 			justificativaAbonos = justificativaAbonoDao.listar();

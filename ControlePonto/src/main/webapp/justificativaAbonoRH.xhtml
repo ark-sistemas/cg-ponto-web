@@ -29,9 +29,12 @@
 				<h:outputText value="Descrição"></h:outputText>
 				<p:inputTextarea rows="10" cols="50" value="#{JustificativaAbonoControl.justificativaAbono.descricao}" maxlength="254" required="false"
 					requiredMessage="Campo Título deve ser preenchido."></p:inputTextarea>
+				
 				<!-- ANEXO DE DOCUMENTO -->
-				<h:outputText value="Anexar Documentos"></h:outputText>
-    			<p:fileUpload value="#{JustificativaAbonoControl.justificativaAbono.anexoDocumento}" mode="simple"/>
+				<h:outputText value="Anexar Documentos" for="anexo"/>
+    			<!--<p:fileUpload id="anexo" value="#{JustificativaAbonoControl.arquivo}" mode="simple" skinSimple="true"/> -->
+    			<!-- <p:fileUpload id="anexo" value="#{JustificativaAbonoControl.arquivo}" mode="simple" skinSimple="true"/> -->
+				<h:inputFile id="anexo" value="#{JustificativaAbonoControl.arquivo}" ></h:inputFile>
 				<!-- HORAS DIARIA INICIO -->
 				<h:outputText value="Hora Inicio"></h:outputText>
 				<p:inputMask value="#{JustificativaAbonoControl.justificativaAbono.horasDiariaInicio}" mask="99:99" required="false"
@@ -57,7 +60,7 @@
         		</p:selectOneMenu>
 				
 				<!-- BOTAO ADICIONAR -->
-				<p:commandButton actionListener="#{JustificativaAbonoControl.alterar }"	value="Adicionar" ajax="false" update="justificativaAbono, panel"></p:commandButton>
+				<p:commandButton actionListener="#{JustificativaAbonoControl.alterar }" value="Adicionar" ajax="false" 	update="justificativaAbono, panel"></p:commandButton>
 			</h:panelGrid>
 		</p:panel>
 		
