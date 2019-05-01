@@ -7,10 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
@@ -81,6 +86,32 @@ public class JustificativaAbonoControl {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
+	
+	public void excluir(JustificativaAbono abono) {
+		try {
+			justificativaAbonoDao.excluirPorId(abono.getId());
+			justificativaAbono = new JustificativaAbono();
+			justificativaAbonos = justificativaAbonoDao.listar();
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e);
+		}
+	}
+	
+	public void download(JustificativaAbono abono) throws IOException {
+		System.out.println(abono.getDescricao());
+		
+		HttpServletResponse response = (HttpServletResponse) FacesContext.
+				getCurrentInstance().getExternalContext().getResponse();
+		response.addHeader("Content-Disposition", "attachment; filename=download.pdf");
+		response.setContentType("application/octet-stream");
+		response.setContentLength(abono.getAnexoDocumento().length);
+		response.getOutputStream().write(abono.getAnexoDocumento());
+		response.getOutputStream().flush();
+		FacesContext.getCurrentInstance().responseComplete();
+		
+		
+	}
+	
 	public void upload() {
 		try {
 			byte[] arquivoByte = toByteArrayUsingJava(arquivo.getInputStream());
@@ -110,7 +141,17 @@ public class JustificativaAbonoControl {
 		}
 	}
 	
-	
+	public void onRowSelect(SelectEvent event) {
+		this.justificativaAbono = ((JustificativaAbono) event.getObject());
+		FacesMessage msg = new FacesMessage("Jutificativa Marcada", ((JustificativaAbono) event.getObject()).getDescricao());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowUnselect(UnselectEvent event) {
+		this.justificativaAbono = null;
+		FacesMessage msg = new FacesMessage("Jutificativa Desmarcada", ((JustificativaAbono) event.getObject()).getDescricao());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 	
 	public Part getArquivo() {
 		return arquivo;

@@ -4,14 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.senai.fatesg.controleponto.entidade.JornadaTrabalho;
+import br.com.senai.fatesg.controleponto.entidade.JustificativaAbono;
 import br.com.senai.fatesg.controleponto.persistencia.JornadaTrabalhoDao;
 
 
@@ -126,6 +131,7 @@ public class JornadaTrabalhoControl {
 	public void excluir(JornadaTrabalho jornada) {
 		try {
 			jornadaTrabalhoDao.excluirPorId(jornada.getId());
+			jornadasTrabalhos = jornadaTrabalhoDao.listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -138,6 +144,18 @@ public class JornadaTrabalhoControl {
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
+	}
+	
+	public void onRowSelect(SelectEvent event) {
+		this.jornadaTrabalho = ((JornadaTrabalho) event.getObject());
+		FacesMessage msg = new FacesMessage("Jornada Marcada", ((JornadaTrabalho) event.getObject()).getDescricao());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onRowUnselect(UnselectEvent event) {
+		this.jornadaTrabalho = null;
+		FacesMessage msg = new FacesMessage("Jornada Desmarcada", ((JornadaTrabalho) event.getObject()).getDescricao());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
 	public List<JornadaTrabalho> listAutoComplete() {

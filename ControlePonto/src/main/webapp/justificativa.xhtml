@@ -68,15 +68,15 @@
 
 				<!-- ANEXO DE DOCUMENTO -->
 				<h:outputText value="Anexar Documentos" for="anexo" />
-				<!--<p:fileUpload id="anexo" value="#{JustificativaAbonoControl.arquivo}" mode="simple" skinSimple="true"/> -->
-				<!-- <p:fileUpload id="anexo" value="#{JustificativaAbonoControl.arquivo}" mode="simple" skinSimple="true"/> -->
 				<h:inputFile id="anexo" value="#{JustificativaAbonoControl.arquivo}"></h:inputFile>
+				
 				<!-- HORAS DIARIA INICIO -->
 				<h:outputText value="Hora Inicio"></h:outputText>
 				<p:inputMask
 					value="#{JustificativaAbonoControl.justificativaAbono.horasDiariaInicio}"
 					mask="99:99" required="false"
 					requiredMessage="Campo Título deve ser preenchido."></p:inputMask>
+					
 				<!-- HORAS DIARIA TERMINO -->
 				<h:outputText value="Hora Término"></h:outputText>
 				<p:inputMask
