@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.senai.fatesg.controleponto.entidade.AjusteDeRegistro;
-import br.com.senai.fatesg.controleponto.interfaces.RegistroPontoService;
+import br.com.senai.fatesg.controleponto.entidade.JustificativaAbono;
+import br.com.senai.fatesg.controleponto.interfaces.JustificativaAbonoService;
 
-@RestController("/registro")
-public class RegistroPontoController implements GenericOperationsController<AjusteDeRegistro>{
+@RestController("/abono")
+public class JustificativaAbonoController implements GenericOperationsController<JustificativaAbono>{
 
 	@Autowired
-	public RegistroPontoService registroService;
+	public JustificativaAbonoService abonoService;
 	
 	
 	@Override
@@ -36,12 +36,12 @@ public class RegistroPontoController implements GenericOperationsController<Ajus
 							MediaType.APPLICATION_XML_VALUE,
 							MediaTypes.HAL_JSON_VALUE})
 @ResponseStatus(HttpStatus.CREATED)
-	public Resource<AjusteDeRegistro> post(AjusteDeRegistro entity) {
+	public Resource<JustificativaAbono> post(JustificativaAbono entity) {
 		
-		registroService.incluir(entity);
+		abonoService.incluir(entity);
 		
-		Link link = linkTo(RegistroPontoController.class).slash(entity.getId()).withSelfRel();
-		Resource<AjusteDeRegistro> result = new Resource<AjusteDeRegistro>(entity,link);
+		Link link = linkTo(JustificativaAbonoController.class).slash(entity.getId()).withSelfRel();
+		Resource<JustificativaAbono> result = new Resource<JustificativaAbono>(entity,link);
 
 		return result;
 	}
@@ -50,10 +50,10 @@ public class RegistroPontoController implements GenericOperationsController<Ajus
 	@PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE,
 							MediaType.APPLICATION_XML_VALUE})
 @ResponseStatus(HttpStatus.NO_CONTENT)
-	public void put(AjusteDeRegistro entity) {
+	public void put(JustificativaAbono entity) {
 		
-		registroService.alterar(entity);
-		Link link = linkTo(AjusteDeRegistro.class).slash(entity.getId()).withSelfRel();
+		abonoService.alterar(entity);
+		Link link = linkTo(JustificativaAbono.class).slash(entity.getId()).withSelfRel();
 		
 	}
 
@@ -61,8 +61,8 @@ public class RegistroPontoController implements GenericOperationsController<Ajus
 	@PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE,
 							MediaType.APPLICATION_XML_VALUE})
 @ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(AjusteDeRegistro entity) {
-		registroService.excluirPorId(entity.getId());
+	public void delete(JustificativaAbono entity) {
+		abonoService.excluirPorId(entity.getId());
 	}
 
 	@Override
@@ -70,19 +70,18 @@ public class RegistroPontoController implements GenericOperationsController<Ajus
 			 				MediaType.APPLICATION_XML_VALUE,
 			 				MediaTypes.HAL_JSON_VALUE})
 @ResponseStatus(HttpStatus.OK)
-	public Resources<AjusteDeRegistro> get() {
-		List<AjusteDeRegistro> allRegistros = registroService.listar();
-		List<AjusteDeRegistro> all = new ArrayList<AjusteDeRegistro>();
-		for(AjusteDeRegistro registro : allRegistros) {
-			String registroId = String.valueOf(registro.getidRegistro());
-			Link selfLink = linkTo(AjusteDeRegistro.class).slash(registroId).withSelfRel();
-			registro.add(selfLink);
-			
-			all.add(registro);
+	public Resources<JustificativaAbono> get() {
+		List<JustificativaAbono> allAbono = abonoService.listar();
+		List<JustificativaAbono> all = new ArrayList<JustificativaAbono>();
+		for(JustificativaAbono abono : allAbono) {
+			String abonoId = String.valueOf(abono.getId());
+			Link selfLink = linkTo(JustificativaAbono.class).slash(abonoId).withSelfRel();
+			abono.add(selfLink);
+			all.add(abono);
 		}
 		
-		Link link = linkTo(AjusteDeRegistro.class).withSelfRel();
-		Resources<AjusteDeRegistro> result = new Resources<AjusteDeRegistro>(all,link);
+		Link link = linkTo(JustificativaAbono.class).withSelfRel();
+		Resources<JustificativaAbono> result = new Resources<JustificativaAbono>(all,link);
 		return result;
 	}
 
@@ -93,7 +92,7 @@ public class RegistroPontoController implements GenericOperationsController<Ajus
 							MediaType.APPLICATION_XML_VALUE,
 							MediaTypes.HAL_JSON_VALUE})
 @ResponseStatus(HttpStatus.OK)
-	public Resource<AjusteDeRegistro> get(Integer id) {
+	public Resource<JustificativaAbono> get(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -102,7 +101,7 @@ public class RegistroPontoController implements GenericOperationsController<Ajus
 	@PatchMapping(consumes = {MediaType.APPLICATION_JSON_VALUE,
 							  MediaType.APPLICATION_XML_VALUE})
 @ResponseStatus(HttpStatus.NO_CONTENT)
-	public void patch(AjusteDeRegistro entity) {
+	public void patch(JustificativaAbono entity) {
 		// TODO Auto-generated method stub
 		
 	}

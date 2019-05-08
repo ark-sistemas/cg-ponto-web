@@ -12,14 +12,16 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.hateoas.ResourceSupport;
+
 
 @Entity
-public class JustificativaAbono {
+public class JustificativaAbono extends ResourceSupport{
 
 	@Id
 	@GeneratedValue(generator="justificativaAbono_seq", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="justificativaAbono_seq", sequenceName="justificativaAbono_seq", allocationSize=1, initialValue=1)
-	private Integer id;
+	private Integer idJustificativaAbono;
 	
 	private String titulo;
 	private String descricao;
@@ -46,7 +48,7 @@ public class JustificativaAbono {
 	//	this.funcionarios = funcionarios;
 	//}
 	//GETTERS
-	public Integer getId() {return id;}									//ID
+	public Integer getIdJustificativaAbono() {return idJustificativaAbono;}									//ID
 	public String getTitulo() {return titulo;}							//TITULO
 	public String getDescricao() {return descricao;}					//DESCRICAO
 	//public String getanexoDocumento() {return anexoDocumento;}
@@ -58,7 +60,7 @@ public class JustificativaAbono {
 	public String getStatus() {return status;}							//STATUS
 	
 	//SETTERS
-	public void setId(Integer id) {this.id = id;}																	//ID
+	public void setIdJustificativaAbono(Integer idJustificativaAbono) {this.idJustificativaAbono = idJustificativaAbono;}																	//ID
 	public void setTitulo(String titulo) {this.titulo = titulo;}													//TITULO
 	public void setDescricao(String descricao) {this.descricao = descricao;}										//DESCRICAO
 	//public void setAnexoDocumento(String anexoDocumento) {this.anexoDocumento = anexoDocumento;}

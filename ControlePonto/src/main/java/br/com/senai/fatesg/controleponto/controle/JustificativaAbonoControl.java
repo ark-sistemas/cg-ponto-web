@@ -47,8 +47,8 @@ public class JustificativaAbonoControl {
 		System.out.println(id);
 		justificativaAbonos = justificativaAbonoDao.listar();
 		for (int i = 0; i < justificativaAbonos.size(); i++) {
-			if(justificativaAbonos.get(i).getId() == id) {
-				justificativaAbono.setId(justificativaAbonos.get(i).getId());
+			if(justificativaAbonos.get(i).getIdJustificativaAbono() == id) {
+				justificativaAbono.setIdJustificativaAbono(justificativaAbonos.get(i).getIdJustificativaAbono());
 				justificativaAbono.setTitulo(justificativaAbonos.get(i).getTitulo());
 				justificativaAbono.setDescricao(justificativaAbonos.get(i).getDescricao());
 				justificativaAbono.setHorasDiariaInicio(justificativaAbonos.get(i).getHorasDiariaInicio());
