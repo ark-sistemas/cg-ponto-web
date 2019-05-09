@@ -1,19 +1,21 @@
 package br.com.senai.fatesg.controleponto.entidade;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
-public class AjusteDeRegistro {
+public class AjusteDeRegistro{
 	
 	@Id
-	private Long id;	
+	@GeneratedValue(generator = "registro_ponto_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "registro_ponto_seq", sequenceName = "registro_ponto_seq", allocationSize = 1, initialValue = 1)
+	private Long idRegistro;	
 	private String data;
 	private String nomeFuncionario;
-	private int codigoJornadaTrabalho;
-	private String codigoRfid;
+	private String codigoJornadaTrabalho;
 	private String primeiraEntrada;
 	private String primeiraSaida;
 	private String segundaEntrada;
@@ -22,17 +24,14 @@ public class AjusteDeRegistro {
 	
 	public AjusteDeRegistro() {
 	}
-		
 	
-	
-	public AjusteDeRegistro(Long id, String data, String nomeFuncionario, int codigoJornadaTrabalho, String codigoRfid,
+	public AjusteDeRegistro(Long idRegistro, String data, String nomeFuncionario, String codigoJornadaTrabalho,
 			String primeiraEntrada, String primeiraSaida, String segundaEntrada, String segundaSaida, Long saldo) {
 		super();
-		this.id = id;
+		this.idRegistro = idRegistro;
 		this.data = data;
 		this.nomeFuncionario = nomeFuncionario;
 		this.codigoJornadaTrabalho = codigoJornadaTrabalho;
-		this.codigoRfid = codigoRfid;
 		this.primeiraEntrada = primeiraEntrada;
 		this.primeiraSaida = primeiraSaida;
 		this.segundaEntrada = segundaEntrada;
@@ -40,19 +39,17 @@ public class AjusteDeRegistro {
 		this.saldo = saldo;
 	}
 
-
-
 	public String getNomeFuncionario() {
 		return nomeFuncionario;
 	}
 	public void setNomeFuncionario(String nomeFuncionario) {
 		this.nomeFuncionario = nomeFuncionario;
 	}
-	public Long getId() {
-		return id;
+	public Long getidRegistro() {
+		return idRegistro;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(Long idRegistro) {
+		this.idRegistro= idRegistro;
 	}
 	public String getData() {
 		return data;
@@ -60,17 +57,11 @@ public class AjusteDeRegistro {
 	public void setData(String data) {
 		this.data = data;
 	}
-	public int getCodigoJornadaTrabalho() {
+	public String getCodigoJornadaTrabalho() {
 		return codigoJornadaTrabalho;
 	}
-	public void setCodigoJornadaTrabalho(int codigoJornadaTrabalho) {
+	public void setCodigoJornadaTrabalho(String codigoJornadaTrabalho) {
 		this.codigoJornadaTrabalho = codigoJornadaTrabalho;
-	}
-	public String getCodigoRfid() {
-		return codigoRfid;
-	}
-	public void setCodigoRfid(String codigoRfid) {
-		this.codigoRfid = codigoRfid;
 	}
 	public String getPrimeiraEntrada() {
 		return primeiraEntrada;
@@ -101,6 +92,31 @@ public class AjusteDeRegistro {
 	}
 	public void setSaldo(Long saldo) {
 		this.saldo = saldo;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((idRegistro == null) ? 0 : idRegistro.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AjusteDeRegistro other = (AjusteDeRegistro) obj;
+		if (idRegistro == null) {
+			if (other.idRegistro != null)
+				return false;
+		} else if (!idRegistro.equals(other.idRegistro))
+			return false;
+		return true;
 	}
 	
 	
