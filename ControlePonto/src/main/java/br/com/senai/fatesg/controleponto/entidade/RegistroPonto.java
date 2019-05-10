@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class AjusteDeRegistro{
+public class RegistroPonto{
 	
 	@Id
 	@GeneratedValue(generator = "registro_ponto_seq", strategy = GenerationType.SEQUENCE)
@@ -22,10 +22,10 @@ public class AjusteDeRegistro{
 	private String segundaSaida;
 	private Long saldo;
 	
-	public AjusteDeRegistro() {
+	public RegistroPonto() {
 	}
 	
-	public AjusteDeRegistro(Long idRegistro, String data, String nomeFuncionario, String codigoJornadaTrabalho,
+	public RegistroPonto(Long idRegistro, String data, String nomeFuncionario, String codigoJornadaTrabalho,
 			String primeiraEntrada, String primeiraSaida, String segundaEntrada, String segundaSaida, Long saldo) {
 		super();
 		this.idRegistro = idRegistro;
@@ -110,7 +110,7 @@ public class AjusteDeRegistro{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AjusteDeRegistro other = (AjusteDeRegistro) obj;
+		RegistroPonto other = (RegistroPonto) obj;
 		if (idRegistro == null) {
 			if (other.idRegistro != null)
 				return false;

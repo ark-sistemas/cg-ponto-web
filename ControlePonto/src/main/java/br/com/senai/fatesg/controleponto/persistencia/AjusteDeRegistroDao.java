@@ -1,9 +1,9 @@
 package br.com.senai.fatesg.controleponto.persistencia;
 
 import br.com.ambientinformatica.jpa.persistencia.Persistencia;
-import br.com.senai.fatesg.controleponto.entidade.AjusteDeRegistro;
+import br.com.senai.fatesg.controleponto.entidade.RegistroPonto;
 
-public interface AjusteDeRegistroDao extends Persistencia<AjusteDeRegistro>{
+public interface AjusteDeRegistroDao extends Persistencia<RegistroPonto>{
 	
-	public void teste(AjusteDeRegistro ajusteDeRegistro);
+	public void teste(RegistroPonto ajusteDeRegistro);
 }

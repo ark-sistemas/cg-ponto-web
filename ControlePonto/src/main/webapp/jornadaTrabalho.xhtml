@@ -86,8 +86,8 @@
 						requiredMessage="Campo Horas Mensais deve ser preenchido."></p:inputMask>
 						
 					<p:commandButton
-						actionListener="#{JornadaTrabalhoControl.confirmar }"
-						value="Confirmar/Alterar"
+						actionListener="#{JornadaTrabalhoControl.confirmar}"
+						value="Confirmar/Alterar" process="panel"
 						update="jornadaTrabalho, panel, displayItems"></p:commandButton>
 				</h:panelGrid>
 			</p:panel>

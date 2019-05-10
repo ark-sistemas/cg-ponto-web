@@ -8,13 +8,13 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import br.com.ambientinformatica.jpa.persistencia.PersistenciaJpa;
-import br.com.senai.fatesg.controleponto.entidade.AjusteDeRegistro;
+import br.com.senai.fatesg.controleponto.entidade.RegistroPonto;
 
 @Repository("AjusteDeRegistroDao")
-public class AjusteDeRegistroDaoJpa extends PersistenciaJpa<AjusteDeRegistro> implements AjusteDeRegistroDao {
+public class AjusteDeRegistroDaoJpa extends PersistenciaJpa<RegistroPonto> implements AjusteDeRegistroDao {
 	private static final long serialVersionUID = 1L;
 
-	public void teste(AjusteDeRegistro ajusteDeRegistro) {
+	public void teste(RegistroPonto ajusteDeRegistro) {
 		// TODO Auto-generated method stub
 		EntityManager entityManager;
 		

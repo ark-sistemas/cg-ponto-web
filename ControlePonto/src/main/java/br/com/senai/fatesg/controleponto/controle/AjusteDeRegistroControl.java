@@ -17,20 +17,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
-import br.com.senai.fatesg.controleponto.entidade.AjusteDeRegistro;
+import br.com.senai.fatesg.controleponto.entidade.RegistroPonto;
 import br.com.senai.fatesg.controleponto.persistencia.AjusteDeRegistroDao;
 
 @Named("AjusteDeRegistroControl")
 @Scope("conversation")
 public class AjusteDeRegistroControl {
 	
-	private AjusteDeRegistro ajusteDeRegistro = new AjusteDeRegistro();
+	private RegistroPonto ajusteDeRegistro = new RegistroPonto();
 	
 	@Autowired
 	private AjusteDeRegistroDao ajusteDeRegistroDao;
 	
-	private List<AjusteDeRegistro> ajusteDeRegistros = new ArrayList<AjusteDeRegistro>();
-	 private static final Map<Long, AjusteDeRegistro> registroMap = new HashMap<Long, AjusteDeRegistro>();
+	private List<RegistroPonto> ajusteDeRegistros = new ArrayList<RegistroPonto>();
+	 private static final Map<Long, RegistroPonto> registroMap = new HashMap<Long, RegistroPonto>();
 	@PostConstruct
 	public void init() {
 		
@@ -42,7 +42,7 @@ public class AjusteDeRegistroControl {
 		try {
 			ajusteDeRegistroDao.alterar(ajusteDeRegistro);
 			listar(evt);
-			ajusteDeRegistro = new AjusteDeRegistro();
+			ajusteDeRegistro = new RegistroPonto();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -51,7 +51,7 @@ public class AjusteDeRegistroControl {
 	public void atualizar() {
 		try {
 			ajusteDeRegistroDao.getEntityManager().createNamedQuery("");
-			ajusteDeRegistro = new AjusteDeRegistro();
+			ajusteDeRegistro = new RegistroPonto();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -84,19 +84,19 @@ public class AjusteDeRegistroControl {
         }
 	}
 
-	public List<AjusteDeRegistro> getAjusteDeRegistros() {
+	public List<RegistroPonto> getAjusteDeRegistros() {
 		return ajusteDeRegistros;
 	}
 
-	public void setAjusteDeRegistros(List<AjusteDeRegistro> ajusteDeRegistros) {
+	public void setAjusteDeRegistros(List<RegistroPonto> ajusteDeRegistros) {
 		this.ajusteDeRegistros = ajusteDeRegistros;
 	}
 
-	public AjusteDeRegistro getAjusteDeRegistro() {
+	public RegistroPonto getAjusteDeRegistro() {
 		return ajusteDeRegistro;
 	}
 
-	public void setAjusteDeRegistro(AjusteDeRegistro ajusteDeRegistro) {
+	public void setAjusteDeRegistro(RegistroPonto ajusteDeRegistro) {
 		this.ajusteDeRegistro = ajusteDeRegistro;
 	}
 
@@ -108,7 +108,7 @@ public class AjusteDeRegistroControl {
 		this.ajusteDeRegistroDao = ajusteDeRegistroDao;
 	}
 
-	public static Map<Long, AjusteDeRegistro> getRegistromap() {
+	public static Map<Long, RegistroPonto> getRegistromap() {
 		return registroMap;
 	}
 	
