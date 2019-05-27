@@ -1,50 +1,86 @@
 package br.com.senai.fatesg.controleponto.entidade;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="registro_ponto")
 public class RegistroPonto{
 	
 	@Id
-	@GeneratedValue(generator = "registro_ponto_seq", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "registro_ponto_seq", sequenceName = "registro_ponto_seq", allocationSize = 1, initialValue = 1)
-	private Long idRegistro;	
+	@GeneratedValue (strategy = GenerationType.AUTO)
+	@Column(name="id")
+	private Long idRegistro;
+	
 	private String data;
-	private String nomeFuncionario;
-	private String codigoJornadaTrabalho;
+	
+	@Column(name = "id_funcionario")
+	private Long idFuncionario;
+	
+	@Column(name = "idcodigo_jornada_trabalho", length = 50, nullable = false)
+	private Long idcodigoJornadaTrabalho;
+	
+	@Column(name = "primeira_entrada", length = 50, nullable = false)
 	private String primeiraEntrada;
+	
+	@Column(name = "primeira_saida", length = 50, nullable = false)
 	private String primeiraSaida;
+	
+	@Column(name = "segunda_entrada", length = 50, nullable = false)
 	private String segundaEntrada;
+	
+	@Column(name = "segunda_saida", length = 50, nullable = false)
 	private String segundaSaida;
+	
 	private Long saldo;
 	
+		
 	public RegistroPonto() {
 	}
 	
-	public RegistroPonto(Long idRegistro, String data, String nomeFuncionario, String codigoJornadaTrabalho,
+	public RegistroPonto(Long idRegistro, String data, Long idFuncionario, Long idcodigoJornadaTrabalho,
 			String primeiraEntrada, String primeiraSaida, String segundaEntrada, String segundaSaida, Long saldo) {
 		super();
 		this.idRegistro = idRegistro;
 		this.data = data;
-		this.nomeFuncionario = nomeFuncionario;
-		this.codigoJornadaTrabalho = codigoJornadaTrabalho;
+		this.idFuncionario = idFuncionario;
+		this.idcodigoJornadaTrabalho = idcodigoJornadaTrabalho;
 		this.primeiraEntrada = primeiraEntrada;
 		this.primeiraSaida = primeiraSaida;
 		this.segundaEntrada = segundaEntrada;
 		this.segundaSaida = segundaSaida;
 		this.saldo = saldo;
 	}
+	
+	public Long getIdRegistro() {
+		return idRegistro;
+	}
 
-	public String getNomeFuncionario() {
-		return nomeFuncionario;
+	public void setIdRegistro(Long idRegistro) {
+		this.idRegistro = idRegistro;
 	}
-	public void setNomeFuncionario(String nomeFuncionario) {
-		this.nomeFuncionario = nomeFuncionario;
+
+	public Long getIdFuncionario() {
+		return idFuncionario;
 	}
+
+	public void setIdFuncionario(Long idFuncionario) {
+		this.idFuncionario = idFuncionario;
+	}
+
+	public Long getIdcodigoJornadaTrabalho() {
+		return idcodigoJornadaTrabalho;
+	}
+
+	public void setIdcodigoJornadaTrabalho(Long idcodigoJornadaTrabalho) {
+		this.idcodigoJornadaTrabalho = idcodigoJornadaTrabalho;
+	}
+
 	public Long getidRegistro() {
 		return idRegistro;
 	}
@@ -57,12 +93,7 @@ public class RegistroPonto{
 	public void setData(String data) {
 		this.data = data;
 	}
-	public String getCodigoJornadaTrabalho() {
-		return codigoJornadaTrabalho;
-	}
-	public void setCodigoJornadaTrabalho(String codigoJornadaTrabalho) {
-		this.codigoJornadaTrabalho = codigoJornadaTrabalho;
-	}
+	
 	public String getPrimeiraEntrada() {
 		return primeiraEntrada;
 	}

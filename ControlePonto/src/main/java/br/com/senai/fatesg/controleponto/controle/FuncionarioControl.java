@@ -97,6 +97,17 @@ public class FuncionarioControl {
 		}
 	}
 
+	public List<Funcionario> listas() {
+		try {
+			List<Funcionario> list;
+			list = funcionarioDao.listar();
+			return list;
+		} catch (Exception e) {
+			UtilFaces.addMensagemFaces(e);
+		}
+		return null;
+	}
+	
 	public void listar(ActionEvent evt) {
 		try {
 			funcionarios = funcionarioDao.listar();

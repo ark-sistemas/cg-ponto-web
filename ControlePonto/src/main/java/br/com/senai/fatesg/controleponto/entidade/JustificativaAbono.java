@@ -1,7 +1,9 @@
 package br.com.senai.fatesg.controleponto.entidade;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,36 +11,63 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
 @Entity
-public class JustificativaAbono {
+@Table(name="justificativa_ponto")
+public class JustificativaAbono implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator="justificativaAbono_seq", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="justificativaAbono_seq", sequenceName="justificativaAbono_seq", allocationSize=1, initialValue=1)
-	private Integer id;
+	@Column(name="id")
+	private Integer idJustificativa;
 	
 	private String titulo;
 	private String descricao;
 	@Lob
+	@Column(name = "anexo_documento")
 	private byte[] anexoDocumento;
-	//private String anexoDocumento;
-	private String horasDiariaInicio;
-	private String horasDiariaTermino;
-	private String dataInicio;
-	private String dataTermino;
-	private String status;
+	
 	@Temporal(TemporalType.DATE)
 	private Date data;
+	
+	@Column(name = "horas_diaria_inicio")
+	private String horasDiariaInicio;
+	
+	@Column(name = "horas_diaria_termino")
+	private String horasDiariaTermino;
+	
+	@Column(name = "data_inicio")
+	private String dataInicio;
+	
+	@Column(name = "data_termino")
+	private String dataTermino;
+	
+	private String status;
+	
+	
+	
 	/*@ManyToMany(fetch = FetchType.LAZY, mappedBy = "justificativasAbonos")
 	private List<Funcionario> funcionarios;
 	*/
 	@ManyToOne
 	private Usuario usuarioLogado = new Usuario();
 	
+	public Integer getIdJustificativa() {
+		return idJustificativa;
+	}
+	public void setIdJustificativa(Integer idJustificativa) {
+		this.idJustificativa = idJustificativa;
+	}
 	public Date getData() {return data;	}
 	public void setData(Date data) {this.data = data;}
 	//public List<Funcionario> getFuncionarios() {return funcionarios;}
@@ -46,7 +75,6 @@ public class JustificativaAbono {
 	//	this.funcionarios = funcionarios;
 	//}
 	//GETTERS
-	public Integer getId() {return id;}									//ID
 	public String getTitulo() {return titulo;}							//TITULO
 	public String getDescricao() {return descricao;}					//DESCRICAO
 	//public String getanexoDocumento() {return anexoDocumento;}
@@ -58,7 +86,6 @@ public class JustificativaAbono {
 	public String getStatus() {return status;}							//STATUS
 	
 	//SETTERS
-	public void setId(Integer id) {this.id = id;}																	//ID
 	public void setTitulo(String titulo) {this.titulo = titulo;}													//TITULO
 	public void setDescricao(String descricao) {this.descricao = descricao;}										//DESCRICAO
 	//public void setAnexoDocumento(String anexoDocumento) {this.anexoDocumento = anexoDocumento;}

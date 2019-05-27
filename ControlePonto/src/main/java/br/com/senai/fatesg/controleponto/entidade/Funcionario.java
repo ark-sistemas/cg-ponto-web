@@ -1,5 +1,6 @@
 package br.com.senai.fatesg.controleponto.entidade;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,12 @@ import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "Funcionario")
-public class Funcionario {
+public class Funcionario implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(generator = "funcionario_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "funcionario_seq", sequenceName = "funcionario_seq", allocationSize = 1, initialValue = 1)
