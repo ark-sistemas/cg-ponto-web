@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.senai.fatesg.controleponto.entidade.Funcionario;
 import br.com.senai.fatesg.controleponto.entidade.JornadaTrabalho;
+import br.com.senai.fatesg.controleponto.entidade.PapelUsuario;
+import br.com.senai.fatesg.controleponto.entidade.Usuario;
 import br.com.senai.fatesg.controleponto.persistencia.FuncionarioDao;
 import br.com.senai.fatesg.controleponto.persistencia.JornadaTrabalhoDao;
 import br.com.senai.fatesg.controleponto.util.ValidadorCPF;
@@ -29,7 +31,7 @@ import br.com.senai.fatesg.controleponto.util.ValidadorCPF;
 public class FuncionarioControl {
 
 	private Funcionario funcionario = new Funcionario();
-
+	private Usuario login = new Usuario();
 	@Autowired
 	private FuncionarioDao funcionarioDao;
 	@Autowired
@@ -39,6 +41,7 @@ public class FuncionarioControl {
 	private JornadaTrabalho jornadaTrabalho = new JornadaTrabalho();
 	private List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 	private List<String> funcionariosMotivoAbono = new ArrayList<String>();
+	private List<PapelUsuario> papeis = new ArrayList<PapelUsuario>();
 
 	@PostConstruct
 	public void init() {
@@ -73,7 +76,12 @@ public class FuncionarioControl {
 	
 	public void confirmar(ActionEvent evt) {
 		try {
+			
 			if(ValidadorCPF.isCPF(funcionario.getCpf())) {
+				login.setAtivo(true);
+				login.setLogin(funcionario.getEmail());
+				login.setNome(funcionario.getNome());
+				funcionario.setLogin(login);
 				funcionarioDao.alterar(funcionario);
 				listar(evt);
 				funcionario = new Funcionario();
@@ -126,6 +134,22 @@ public class FuncionarioControl {
 		this.funcionario = null;
 		FacesMessage msg = new FacesMessage("Empresa Desmarcada", ((Funcionario) event.getObject()).getNome());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public List<PapelUsuario> getPapeis() {
+		return papeis;
+	}
+
+	public void setPapeis(List<PapelUsuario> papeis) {
+		this.papeis = papeis;
+	}
+
+	public Usuario getLogin() {
+		return login;
+	}
+
+	public void setLogin(Usuario login) {
+		this.login = login;
 	}
 
 	public Funcionario getFuncionario() {

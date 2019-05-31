@@ -54,59 +54,39 @@
 				<h:outputText value="#{UsuarioLogadoControl.ip}" />
 				
 				<!-- TITULO -->
-				<h:outputText value="Título"></h:outputText>
-				<p:inputText id="titulo"
-					value="#{JustificativaAbonoControl.justificativaAbono.titulo}"
-					maxlength="50" required="false"
-					requiredMessage="Campo Título deve ser preenchido."></p:inputText>
+				<h:outputText value="Título:"></h:outputText>
+				<h:outputText value="#{JustificativaAbonoControl.justificativa.titulo}"></h:outputText>
 				<!-- DESCRICAO -->
-				<h:outputText value="Descrição"></h:outputText>
-				<p:inputTextarea id="descricao" rows="10" cols="50"
-					value="#{JustificativaAbonoControl.justificativaAbono.descricao}"
-					maxlength="254" required="false"
-					requiredMessage="Campo Título deve ser preenchido."></p:inputTextarea>
-
-				<!-- ANEXO DE DOCUMENTO -->
-				<h:outputText value="Anexar Documentos" for="anexo" />
-				<h:inputFile id="anexo" value="#{JustificativaAbonoControl.arquivo}"></h:inputFile>
+				<h:outputText value="Descrição:"></h:outputText>
+				<h:outputText value="#{JustificativaAbonoControl.justificativa.descricao}"></h:outputText>
 				
 				<!-- HORAS DIARIA INICIO -->
-				<h:outputText value="Hora Inicio"></h:outputText>
-				<p:inputMask id="hInicio"
-					value="#{JustificativaAbonoControl.justificativaAbono.horasDiariaInicio}"
-					mask="99:99" required="false"
-					requiredMessage="Campo Título deve ser preenchido."></p:inputMask>
+				<h:outputText value="Hora Inicio:"></h:outputText>
+				<h:outputText value="#{JustificativaAbonoControl.justificativa.horasDiariaInicio}"></h:outputText>
 				<!-- HORAS DIARIA TERMINO -->
-				<h:outputText value="Hora Término"></h:outputText>
-				<p:inputMask id="hTermino"
-					value="#{JustificativaAbonoControl.justificativaAbono.horasDiariaTermino}"
-					mask="99:99" required="false"
-					requiredMessage="Campo Título deve ser preenchido."></p:inputMask>
+				<h:outputText value="Hora Término:"></h:outputText>
+				<h:outputText value="#{JustificativaAbonoControl.justificativa.horasDiariaTermino}"></h:outputText>
 				
 				<!-- DATA DE INICIO -->
-				<h:outputText for="dtInicioO" value="Data Inicio"></h:outputText>
-				<p:calendar id="dtInicioO" value="#{JustificativaAbonoControl.justificativaAbono.dataInicio}" locale="pt_BR"
-					navigator="true" maxlength="8" required="true" mask="99/99/9999" maskAutoClear="true" pattern="dd/MM/yyyy"/>
+				<h:outputText value="Data de Inicio:"></h:outputText>
+				<h:outputText value="#{JustificativaAbonoControl.justificativa.dataInicio}"></h:outputText>
 				
 				<!-- DATA TERMINO -->
-				<h:outputText for="dtTermino" value="Data Termino"></h:outputText>
-				<p:calendar id="dtTermino" value="#{JustificativaAbonoControl.justificativaAbono.dataTermino}" locale="pt_BR"
-					navigator="true" maxlength="8" required="true" mask="99/99/9999" maskAutoClear="true" pattern="dd/MM/yyyy"/>
+				<h:outputText value="Data de Término:"></h:outputText>
+				<h:outputText value="#{JustificativaAbonoControl.justificativa.dataTermino}"></h:outputText>
 				
 				
 				<!-- STATUS -->
 				<p:outputLabel for="status" value="Status:" />
 				<p:selectOneMenu id="status"
-					value="#{JustificativaAbonoControl.justificativaAbono.status}">
+					value="#{JustificativaAbonoControl.justificativa.status}">
 					<f:selectItem itemLabel="Selecione" itemValue="Recusado" />
 					<f:selectItem itemLabel="Aceito" itemValue="Aceito" />
 					<f:selectItem itemLabel="Recusado" itemValue="Recusado" />
 				</p:selectOneMenu>
 
 				<!-- BOTAO ADICIONAR -->
-				<p:commandButton id="addJustificativa"
-					actionListener="#{JustificativaAbonoControl.alterar }"
-					value="Submit" ajax="false" update="justificativaAbono, panel"></p:commandButton>
+				<p:commandButton actionListener="#{JustificativaAbonoControl.alterar }" value="Adicionar" ajax="false" process="@form" update="justificativaAbono, panel"></p:commandButton>
 			</h:panelGrid>
 		</p:panel>
 
@@ -115,7 +95,7 @@
 		<p:dataTable id="justificativaAbono" var="abono"
 			value="#{JustificativaAbonoControl.justificativaAbonos}"
 			selectionMode="single"
-			selection="#{JustificativaAbonoControl.justificativaAbono}"
+			selection="#{JustificativaAbonoControl.justificativa}"
 			rowKey="#{abono.idJustificativa}" width="100%" emptyMessage="Sem registros">
 			<f:facet name="header">
 				<h:outputText value="Lista de Justificativas de Abono"></h:outputText>
@@ -198,7 +178,7 @@
 					actionListener="#{JustificativaAbonoControl.download(abono)}"
 					value="Download">
 					<f:param name="fileDownloadId"
-						value="#{JustificativaAbonoControl.justificativaAbono}" />
+						value="#{JustificativaAbonoControl.justificativa}" />
 				</h:commandLink>
 				<h:outputText value="#{abono.usuarioLogado.login}"></h:outputText>
 			</p:column>

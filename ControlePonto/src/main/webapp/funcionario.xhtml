@@ -108,7 +108,13 @@
 					requiredMessage="Campo Cidade deve ser preenchido.">
 					<p:keyFilter regEx="/[a-z ]/i" />
 				</p:inputText>
-
+				
+				<h:outputText value="Email"></h:outputText>
+				<p:inputText value="#{FuncionarioControl.funcionario.email}"
+					maxlength="20" required="true"
+					requiredMessage="Campo email deve ser preenchido.">
+				</p:inputText>
+				
 				<h:outputText value="CEP"></h:outputText>
 				<p:inputMask value="#{FuncionarioControl.funcionario.cep }"
 					mask="99999-999" required="true"
@@ -134,13 +140,12 @@
 
 				<h:outputText value="Papel"></h:outputText>
 				<p:selectOneMenu id="papel"
-					value="#{FuncionarioControl.funcionario.papel}"
+					value="#{FuncionarioControl.funcionario.login.papeis}"
 					style="width: 195px">
-					<f:selectItem itemLabel="Operacional" itemValue="Operacional" />
-					<f:selectItem itemLabel="Supervisor" itemValue="Supervisor" />
-					<f:selectItem itemLabel="RH" itemValue="RH" />
+					<f:selectItems value="#{FuncionarioControl.papeis}" var="papel" 
+					itemLabel="#{papel.papel}" itemValue="#{papel}" />
 				</p:selectOneMenu>
-
+				
 				<h:outputText value="Status"></h:outputText>
 				<p:inputSwitch id="status"
 					value="#{FuncionarioControl.funcionario.status}" />
@@ -153,7 +158,12 @@
 						itemLabel="#{jornada.descricao}" itemValue="#{jornada}" />
 				</p:selectOneMenu>
 
-
+				<h:outputText value="Senha"></h:outputText>
+				<p:inputText value="#{FuncionarioControl.login.senha}"
+					maxlength="20" required="true"
+					requiredMessage="Campo email deve ser preenchido.">
+				</p:inputText>
+				
 				<p:commandButton actionListener="#{FuncionarioControl.confirmar }"
 					value="Incluir/Alterar" update="funcionarios, panel"
 					process="@this, panel" from="@formCorpo"></p:commandButton>

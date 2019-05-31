@@ -15,25 +15,25 @@
 				
 				<!-- TITULO -->
 				<h:outputText value="Título"></h:outputText>
-				<p:inputText value="#{JustificativaAbonoControl.justificativaAbono.titulo}" maxlength="50"></p:inputText>
+				<p:inputText value="#{JustificativaAbonoControl.justificativa.titulo}" maxlength="50"></p:inputText>
 				<!-- DESCRICAO -->
 				<h:outputText value="Descrição"></h:outputText>
-				<p:inputTextarea name="txtDescricao" rows="10" cols="50" value="#{JustificativaAbonoControl.justificativaAbono.descricao}" maxlength="254"></p:inputTextarea>
+				<p:inputTextarea name="txtDescricao" rows="10" cols="50" value="#{JustificativaAbonoControl.justificativa.descricao}" maxlength="254"></p:inputTextarea>
 				<!-- ANEXO DE DOCUMENTO -->
 				<h:outputText value="Anexar Documentos"></h:outputText>
-    			<p:fileUpload value="#{JustificativaAbonoControl.justificativaAbono.anexoDocumento}" mode="simple"/>
+    			<h:inputFile value="#{JustificativaAbonoControl.arquivo}" mode="simple"></h:inputFile>
 				<!-- HORAS DIARIA INICIO -->
 				<h:outputText value="Hora Inicio"></h:outputText>
-				<p:inputMask name="txtHoraInicio" value="#{JustificativaAbonoControl.justificativaAbono.horasDiariaInicio}" mask="99:99"></p:inputMask>
+				<p:inputMask name="txtHoraInicio" value="#{JustificativaAbonoControl.justificativa.horasDiariaInicio}" mask="99:99"></p:inputMask>
 				<!-- HORAS DIARIA TERMINO -->
 				<h:outputText value="Hora Término"></h:outputText>
-				<p:inputMask name="txtHoraTermino" value="#{JustificativaAbonoControl.justificativaAbono.horasDiariaTermino}" mask="99:99"></p:inputMask>
+				<p:inputMask name="txtHoraTermino" value="#{JustificativaAbonoControl.justificativa.horasDiariaTermino}" mask="99:99"></p:inputMask>
 				<!-- DATA DE INICIO -->
 				<h:outputText value="Data Inicio"></h:outputText>
-				<p:inputMask name="txtDataInicio" value="#{JustificativaAbonoControl.justificativaAbono.dataInicio}" mask="99/99/9999"></p:inputMask>
+				<p:inputMask name="txtDataInicio" value="#{JustificativaAbonoControl.justificativa.dataInicio}" mask="99/99/9999"></p:inputMask>
 				<!-- DATA TERMINO -->
-				<h:outputText value="Data Termino"></h:outputText>
-				<p:inputMask name="txtDataTermino" value="#{JustificativaAbonoControl.justificativaAbono.dataTermino}" mask="99/99/9999"></p:inputMask>
+				<h:outputText value="Data Término"></h:outputText>
+				<p:inputMask name="txtDataTermino" value="#{JustificativaAbonoControl.justificativa.dataTermino}" mask="99/99/9999"></p:inputMask>
 				<!-- STATUS -->
 				<!-- <p:outputLabel for="status" value="Status:" />
         		<p:selectOneMenu id="status" value="#{JustificativaAbonoControl.justificativaAbono.status}" disabled="true">
@@ -43,22 +43,22 @@
         		</p:selectOneMenu> -->
 				
 				<!-- BOTAO ADICIONAR -->
-				<p:commandButton id="btnAdicionar" actionListener="#{JustificativaAbonoControl.incluir }"	value="Adicionar" ajax="false" update="justificativaAbono, panel"></p:commandButton>
+				<p:commandButton id="btnAdicionar" actionListener="#{JustificativaAbonoControl.alterar }"	value="Adicionar" ajax="false" update="justificativaAbono, panel"></p:commandButton>
 			</h:panelGrid>
 		</p:panel>
 		
 
 		<!-- TABELA DE JUSTIFICATIVAS DE ABONO -->
-		<p:dataTable id="justificativaAbono" value="#{JustificativaAbonoControl.justificativaAbonos }" var="abono" width="100%" emptyMessage="Sem registros">
+		<p:dataTable id="justificativaAbono" value="#{JustificativaAbonoControl.justificativaAbonos}" var="abono" width="100%" emptyMessage="Sem registros">
 			<f:facet name="header">
 				<h:outputText value="Lista de Justificativas de Abono"></h:outputText>
 			</f:facet>
 			<!-- ID -->
-			<p:column sortBy="#{abono.id}">
+			<p:column sortBy="#{abono.idJustificativa}">
 				<f:facet name="header">
 					<h:outputText value="ID"></h:outputText>
 				</f:facet>
-				<h:outputText value="#{abono.id}"></h:outputText>
+				<h:outputText value="#{abono.idJustificativa}"></h:outputText>
 			</p:column>
 			<!-- TITULO -->
 			<p:column sortBy="#{abono.titulo}">

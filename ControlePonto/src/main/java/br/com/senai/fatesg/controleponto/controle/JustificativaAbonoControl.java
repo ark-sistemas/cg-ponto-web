@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
@@ -20,26 +21,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
+import br.com.senai.fatesg.controleponto.entidade.Funcionario;
 import br.com.senai.fatesg.controleponto.entidade.JustificativaAbono;
 import br.com.senai.fatesg.controleponto.entidade.Usuario;
+import br.com.senai.fatesg.controleponto.persistencia.FuncionarioDao;
 import br.com.senai.fatesg.controleponto.persistencia.JustificativaAbonoDao;
 import br.com.senai.fatesg.controleponto.util.BytesUtilJalis;
 
+//@Scope("conversation")
 @Named("JustificativaAbonoControl")
-@Scope("conversation")
+@ViewScoped
 public class JustificativaAbonoControl {
-
+	
+	private Funcionario funcionario = new Funcionario();
 	private JustificativaAbono justificativaAbono = new JustificativaAbono();
-	private Object obj = new Object();
+	private JustificativaAbono justificativa = new JustificativaAbono();
 	private Part arquivo;
 	@Autowired
 	private JustificativaAbonoDao justificativaAbonoDao;
+	@Autowired
+	private FuncionarioDao funcionarioDao;
 	 
 	private List<JustificativaAbono> justificativaAbonos = new ArrayList<JustificativaAbono>();
-	private Integer id;
+	private List<JustificativaAbono> justificativaAbonosRH = new ArrayList<JustificativaAbono>();
+	private List<JustificativaAbono> justificativaAux = new ArrayList<JustificativaAbono>();
 	  
 	@PostConstruct
 	   public void init(){
+		justificativa = new JustificativaAbono();
 	      listar(null);
 	   }
 	
@@ -49,24 +58,26 @@ public class JustificativaAbonoControl {
 	}
 	public void incluir(ActionEvent evt){
 		try {
-			justificativaAbono.setAnexoDocumento(BytesUtilJalis.toByteArray(obj));
 			Usuario usuarioLogado = UsuarioLogadoControl.getUsuarioLogado();
-			justificativaAbono.setUsuarioLogado(usuarioLogado);
-			justificativaAbonoDao.incluir(justificativaAbono);
+			justificativa.setUsuarioLogado(usuarioLogado);
+			justificativaAbonoDao.incluir(justificativa);
 			listar(evt);
          justificativaAbono = new JustificativaAbono();
 		} catch (Exception e) {
 		   UtilFaces.addMensagemFaces(e);
 		}
 	}
-	public void alterar(ActionEvent evt) {
+	public void alterar() {
 		try {
 			upload();
 			Usuario usuarioLogado = UsuarioLogadoControl.getUsuarioLogado();
-			justificativaAbono.setUsuarioLogado(usuarioLogado);
-			justificativaAbonoDao.alterar(justificativaAbono);
-			listar(evt);
-			justificativaAbono = new JustificativaAbono(); 
+			justificativa.setUsuarioLogado(usuarioLogado);
+			justificativa.setStatus("Recusado");
+			justificativaAux.add(justificativa);
+			funcionario.setJustificativasAbonos(justificativaAux);
+			funcionarioDao.alterar(funcionario);
+			listar(null);
+			justificativa = new JustificativaAbono(); 
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
@@ -75,7 +86,7 @@ public class JustificativaAbonoControl {
 	public void excluir(JustificativaAbono abono) {
 		try {
 			justificativaAbonoDao.excluirPorId(abono.getIdJustificativa());
-			justificativaAbono = new JustificativaAbono();
+			justificativa = new JustificativaAbono();
 			justificativaAbonos = justificativaAbonoDao.listar();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
@@ -83,7 +94,7 @@ public class JustificativaAbonoControl {
 	}
 	
 	public void download(JustificativaAbono abono) throws IOException {
-		System.out.println(abono.getDescricao());
+		System.out.println("Aqui "+abono.getDescricao());
 		
 		HttpServletResponse response = (HttpServletResponse) FacesContext.
 				getCurrentInstance().getExternalContext().getResponse();
@@ -101,7 +112,7 @@ public class JustificativaAbonoControl {
 		try {
 			byte[] arquivoByte = toByteArrayUsingJava(arquivo.getInputStream());
 			//byte[] arquivoByte = BytesUtilJalis.toByteArray(arquivo.getInputStream());
-			justificativaAbono.setAnexoDocumento(arquivoByte);
+			justificativa.setAnexoDocumento(arquivoByte);
 			
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -127,17 +138,41 @@ public class JustificativaAbonoControl {
 	}
 	
 	public void onRowSelect(SelectEvent event) {
-		this.justificativaAbono = ((JustificativaAbono) event.getObject());
+		this.justificativa = ((JustificativaAbono) event.getObject());
 		FacesMessage msg = new FacesMessage("Jutificativa Marcada", ((JustificativaAbono) event.getObject()).getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void onRowUnselect(UnselectEvent event) {
-		this.justificativaAbono = null;
+		this.justificativa = null;
 		FacesMessage msg = new FacesMessage("Jutificativa Desmarcada", ((JustificativaAbono) event.getObject()).getDescricao());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
+	public List<JustificativaAbono> getJustificativaAbonosRH() {
+		return justificativaAbonosRH;
+	}
+
+	public void setJustificativaAbonosRH(List<JustificativaAbono> justificativaAbonosRH) {
+		this.justificativaAbonosRH = justificativaAbonosRH;
+	}
+
+	public List<JustificativaAbono> getJustificativaAux() {
+		return justificativaAux;
+	}
+
+	public void setJustificativaAux(List<JustificativaAbono> justificativaAux) {
+		this.justificativaAux = justificativaAux;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
 	public Part getArquivo() {
 		return arquivo;
 	}
@@ -145,15 +180,15 @@ public class JustificativaAbonoControl {
 	public void setArquivo(Part arquivo) {
 		this.arquivo = arquivo;
 	}
+			
+	public JustificativaAbono getJustificativa() {
+		return justificativa;
+	}
 
-	public Object getObj() {
-		return obj;
+	public void setJustificativa(JustificativaAbono justificativa) {
+		this.justificativa = justificativa;
 	}
-	
-	public void setObj(Object obj) {
-		this.obj = obj;
-	}
-	
+
 	public JustificativaAbono getJustificativaAbono() {
 		return justificativaAbono;
 	}
@@ -161,7 +196,7 @@ public class JustificativaAbonoControl {
 	public void setJustificativaAbono(JustificativaAbono justificativaAbono) {
 		this.justificativaAbono = justificativaAbono;
 	}
-	
+
 	public List<JustificativaAbono> getJustificativaAbonos() {
 		return justificativaAbonos;
 	}
@@ -172,14 +207,6 @@ public class JustificativaAbonoControl {
 
 	public void setJustificativaAbonoDao(JustificativaAbonoDao justificativaAbonoDao) {
 		this.justificativaAbonoDao = justificativaAbonoDao;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public void setJustificativaAbonos(List<JustificativaAbono> justificativaAbonos) {

@@ -51,6 +51,9 @@ public class Funcionario implements Serializable{
 	@Column(name = "estadoCivil", length = 30, nullable = false)
 	private String estadoCivil;
 	
+	@Column(name = "email", length = 50, nullable = false)
+	private String email;
+	
 	@Column(name = "complemento", length = 50, nullable = false)
 	private String complemento;
 
@@ -78,9 +81,6 @@ public class Funcionario implements Serializable{
 	@Column(name = "bancoHoras", length = 20, nullable = false)
 	private String bancoHoras;
 
-	@Column(name = "papel", length = 30, nullable = false)
-	private String papel;
-
 	@Column(name="Status", length=1, nullable=false)
 	private char status;
 
@@ -104,15 +104,17 @@ public class Funcionario implements Serializable{
 	    )
 	private List<JustificativaAbono> justificativasAbonos;
 	
+	@ManyToOne
+	private Usuario login = new Usuario();
+	
 	public Funcionario() {
 		super();
 	}
 	
-	
 	public Funcionario(Integer id, String nome, String logradouro, String numero, Date dataNascimento,
-			String estadoCivil, String complemento, String bairro, String cidade, String estado, String cep,
-			String telefone, String celular, String cpf, String bancoHoras, String papel, char status,
-			JornadaTrabalho jornada, List<JustificativaAbono> justificativasAbonos) {
+			String estadoCivil, String email, String complemento, String bairro, String cidade, String estado,
+			String cep, String telefone, String celular, String cpf, String bancoHoras, char status,
+			JornadaTrabalho jornada, List<JustificativaAbono> justificativasAbonos, Usuario login) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -120,6 +122,7 @@ public class Funcionario implements Serializable{
 		this.numero = numero;
 		this.dataNascimento = dataNascimento;
 		this.estadoCivil = estadoCivil;
+		this.email = email;
 		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cidade = cidade;
@@ -129,13 +132,27 @@ public class Funcionario implements Serializable{
 		this.celular = celular;
 		this.cpf = cpf;
 		this.bancoHoras = bancoHoras;
-		this.papel = papel;
 		this.status = status;
 		this.jornada = jornada;
 		this.justificativasAbonos = justificativasAbonos;
+		this.login = login;
 	}
-	
-	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Usuario getLogin() {
+		return login;
+	}
+
+	public void setLogin(Usuario login) {
+		this.login = login;
+	}
 
 	public Date getDataNascimento() {
 		return dataNascimento;
@@ -279,14 +296,6 @@ public class Funcionario implements Serializable{
 
 	public void setBancoHoras(String bancoHoras) {
 		this.bancoHoras = bancoHoras;
-	}
-
-	public String getPapel() {
-		return papel;
-	}
-
-	public void setPapel(String papel) {
-		this.papel = papel;
 	}
 
 	public boolean getStatus() {

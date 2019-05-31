@@ -36,7 +36,7 @@ public class JUnit_TesteIncluirFuncionario {
 		funcionario.setBancoHoras("bancoHoras TESTE");
 		//funcionario.setJornadaTrabalho(123);
 		//funcionario.setRfid("rfid TESTE");
-		funcionario.setPapel("papel TESTE");
+		//funcionario.setPapel("papel TESTE");
 		
 		assertNull(funcionario);
 		System.out.println("Incluindo um Funcionario: " + funcionario.getNome());

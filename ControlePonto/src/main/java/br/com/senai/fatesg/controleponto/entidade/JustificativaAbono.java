@@ -11,13 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
 @Entity
-@Table(name="justificativa_ponto")
 public class JustificativaAbono implements Serializable{
 
 	/**
@@ -33,8 +31,8 @@ public class JustificativaAbono implements Serializable{
 	
 	private String titulo;
 	private String descricao;
+	
 	@Lob
-	@Column(name = "anexo_documento")
 	private byte[] anexoDocumento;
 	
 	@Temporal(TemporalType.DATE)
@@ -68,33 +66,61 @@ public class JustificativaAbono implements Serializable{
 	public void setIdJustificativa(Integer idJustificativa) {
 		this.idJustificativa = idJustificativa;
 	}
-	public Date getData() {return data;	}
-	public void setData(Date data) {this.data = data;}
-	//public List<Funcionario> getFuncionarios() {return funcionarios;}
-	//public void setFuncionarios(List<Funcionario> funcionarios) {
-	//	this.funcionarios = funcionarios;
-	//}
-	//GETTERS
-	public String getTitulo() {return titulo;}							//TITULO
-	public String getDescricao() {return descricao;}					//DESCRICAO
-	//public String getanexoDocumento() {return anexoDocumento;}
-	public byte[] getAnexoDocumento(){return anexoDocumento;}			//ANEXO DOCUMENTOS
-	public String getHorasDiariaInicio() {return horasDiariaInicio;}	//HORAS DIARIAS INICIO
-	public String getHorasDiariaTermino() {return horasDiariaTermino;}	//HORAS DIARIAS TERMINO
-	public String getDataInicio() {return dataInicio;}					//DATA INICIO
-	public String getDataTermino() {return dataTermino;}				//DATA TERMINO
-	public String getStatus() {return status;}							//STATUS
-	
-	//SETTERS
-	public void setTitulo(String titulo) {this.titulo = titulo;}													//TITULO
-	public void setDescricao(String descricao) {this.descricao = descricao;}										//DESCRICAO
-	//public void setAnexoDocumento(String anexoDocumento) {this.anexoDocumento = anexoDocumento;}
-	public void setAnexoDocumento(byte[] anexoDocumento) {this.anexoDocumento = anexoDocumento;}		   			//ANEXO DOCUMENTOS
-	public void setHorasDiariaInicio(String horasDiariaInicio) {this.horasDiariaInicio = horasDiariaInicio;}		//HORAS DIARIAS INICIO
-	public void setHorasDiariaTermino(String horasDiariaTermino) {this.horasDiariaTermino = horasDiariaTermino;}	//HORAS DIARIAS TERMINO
-	public void setDataInicio(String dataInicio) {this.dataInicio = dataInicio;}									//DATA INICIO
-	public void setDataTermino(String dataTermino) {this.dataTermino = dataTermino;}								//DATA TERMINO
-	public void setStatus(String status) {this.status = status;}													//STATUS
+	public String getTitulo() {
+		return titulo;
+	}
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	public byte[] getAnexoDocumento() {
+		return anexoDocumento;
+	}
+	public void setAnexoDocumento(byte[] anexoDocumento) {
+		this.anexoDocumento = anexoDocumento;
+	}
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
+	public String getHorasDiariaInicio() {
+		return horasDiariaInicio;
+	}
+	public void setHorasDiariaInicio(String horasDiariaInicio) {
+		this.horasDiariaInicio = horasDiariaInicio;
+	}
+	public String getHorasDiariaTermino() {
+		return horasDiariaTermino;
+	}
+	public void setHorasDiariaTermino(String horasDiariaTermino) {
+		this.horasDiariaTermino = horasDiariaTermino;
+	}
+	public String getDataInicio() {
+		return dataInicio;
+	}
+	public void setDataInicio(String dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+	public String getDataTermino() {
+		return dataTermino;
+	}
+	public void setDataTermino(String dataTermino) {
+		this.dataTermino = dataTermino;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	//STATUS
 	public Usuario getUsuarioLogado() {
 		return usuarioLogado;
 	}
