@@ -58,5 +58,10 @@ public class PapelUsuario implements Comparable<PapelUsuario>{
       } 
    }
 
+@Override
+public String toString() {
+	return "PapelUsuario [papel=" + papel + "]";
+}
+
    
 }

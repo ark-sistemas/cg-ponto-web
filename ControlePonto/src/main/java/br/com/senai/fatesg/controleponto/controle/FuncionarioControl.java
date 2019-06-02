@@ -21,6 +21,8 @@ import br.com.senai.fatesg.controleponto.entidade.PapelUsuario;
 import br.com.senai.fatesg.controleponto.entidade.Usuario;
 import br.com.senai.fatesg.controleponto.persistencia.FuncionarioDao;
 import br.com.senai.fatesg.controleponto.persistencia.JornadaTrabalhoDao;
+import br.com.senai.fatesg.controleponto.persistencia.PapelUsuarioDao;
+import br.com.senai.fatesg.controleponto.persistencia.UsuarioDao;
 import br.com.senai.fatesg.controleponto.util.ValidadorCPF;
 
 //@Scope("conversation")
@@ -36,13 +38,21 @@ public class FuncionarioControl {
 	private FuncionarioDao funcionarioDao;
 	@Autowired
 	private JornadaTrabalhoDao jornadaTrabalhoDao;
+	@Autowired
+	private PapelUsuarioDao papelUsuarioDao;
+	@Autowired
+	private UsuarioDao usuarioDao;
+	
 
 	private List<JornadaTrabalho> jornadasTrabalhos = new ArrayList<JornadaTrabalho>();
 	private JornadaTrabalho jornadaTrabalho = new JornadaTrabalho();
 	private List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 	private List<String> funcionariosMotivoAbono = new ArrayList<String>();
 	private List<PapelUsuario> papeis = new ArrayList<PapelUsuario>();
-
+	private PapelUsuario papel = new PapelUsuario();
+	private String senha;
+	
+	
 	@PostConstruct
 	public void init() {
 		//jornadaTrabalho = new JornadaTrabalho();
@@ -63,6 +73,7 @@ public class FuncionarioControl {
 	
 	private void preencherJornadas() {
 		this.jornadasTrabalhos = jornadaTrabalhoDao.listar();
+		this.papeis = papelUsuarioDao.listar();
 		/*
 		for (int i = 0; i < jornadasTrabalhos.size(); i++) {
 			if (!funcionarios.isEmpty()) {
@@ -78,14 +89,17 @@ public class FuncionarioControl {
 		try {
 			
 			if(ValidadorCPF.isCPF(funcionario.getCpf())) {
+				login.setSenhaNaoCriptografada(senha);
+				login.addPapel(papel.getPapel());
 				login.setAtivo(true);
 				login.setLogin(funcionario.getEmail());
 				login.setNome(funcionario.getNome());
+				usuarioDao.incluir(login);
 				funcionario.setLogin(login);
+				//login.getPapeisList()
 				funcionarioDao.alterar(funcionario);
 				listar(evt);
 				funcionario = new Funcionario();
-				
 			}
 			else {
 				
@@ -134,6 +148,30 @@ public class FuncionarioControl {
 		this.funcionario = null;
 		FacesMessage msg = new FacesMessage("Empresa Desmarcada", ((Funcionario) event.getObject()).getNome());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public PapelUsuarioDao getPapelUsuarioDao() {
+		return papelUsuarioDao;
+	}
+
+	public void setPapelUsuarioDao(PapelUsuarioDao papelUsuarioDao) {
+		this.papelUsuarioDao = papelUsuarioDao;
+	}
+
+	public PapelUsuario getPapel() {
+		return papel;
+	}
+
+	public void setPapel(PapelUsuario papel) {
+		this.papel = papel;
 	}
 
 	public List<PapelUsuario> getPapeis() {

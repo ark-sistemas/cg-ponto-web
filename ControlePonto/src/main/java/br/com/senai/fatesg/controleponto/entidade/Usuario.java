@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -20,7 +21,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import br.com.ambientinformatica.jpa.util.AlfaNumerico;
 import br.com.ambientinformatica.util.AmbientValidator;
 import br.com.ambientinformatica.util.Entidade;
 import br.com.ambientinformatica.util.UtilHash;
@@ -29,11 +29,11 @@ import br.com.ambientinformatica.util.UtilHash.Algoritimo;
 @Entity
 public class Usuario extends Entidade{
 
+	//@AlfaNumerico(message = "O login do usuário não pode conter caracteres especiais, acentos ou espaços", semAcentos = true, semEspacos = true, groups=AmbientValidator.class)
    @Id
    @Column(nullable=false, unique = true)
    @NotNull(message="Login do usuário é obrigatório", groups=AmbientValidator.class)
    @NotEmpty(message="Login do usuário é obrigatório", groups=AmbientValidator.class)
-   @AlfaNumerico(message = "O login do usuário não pode conter caracteres especiais, acentos ou espaços", semAcentos = true, semEspacos = true, groups=AmbientValidator.class)
    private String login;
    
    public void addPapel(EnumPapelUsuario papel){
@@ -57,7 +57,7 @@ public class Usuario extends Entidade{
    @Temporal(TemporalType.DATE)
    private Date dataUltimoAcesso = new Date();
    
-   @OneToMany(cascade=CascadeType.ALL)
+   @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
    @JoinColumn(name="usuario_id")
    @Cascade(value=org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
    private Set<PapelUsuario> papeis = new HashSet<PapelUsuario>();
@@ -136,6 +136,16 @@ public class Usuario extends Entidade{
       return result;
    }
 
+   public PapelUsuario getPapelSingle() {
+	   PapelUsuario aux = new PapelUsuario();
+	      List<PapelUsuario> result = new ArrayList<PapelUsuario>(papeis);
+	      for (int i = 0; i < result.size(); i++) {
+	    	  aux = result.get(i);
+			
+		}
+	      return aux;
+	   }
+   
 	public boolean isAtivo() {
 		return ativo;
 	}

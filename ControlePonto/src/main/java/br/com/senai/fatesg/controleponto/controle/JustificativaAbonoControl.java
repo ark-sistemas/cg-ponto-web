@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -18,7 +19,6 @@ import javax.servlet.http.Part;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.senai.fatesg.controleponto.entidade.Funcionario;
@@ -26,11 +26,11 @@ import br.com.senai.fatesg.controleponto.entidade.JustificativaAbono;
 import br.com.senai.fatesg.controleponto.entidade.Usuario;
 import br.com.senai.fatesg.controleponto.persistencia.FuncionarioDao;
 import br.com.senai.fatesg.controleponto.persistencia.JustificativaAbonoDao;
-import br.com.senai.fatesg.controleponto.util.BytesUtilJalis;
 
 //@Scope("conversation")
-@Named("JustificativaAbonoControl")
+//@SessionScoped
 @ViewScoped
+@Named("JustificativaAbonoControl")
 public class JustificativaAbonoControl {
 	
 	private Funcionario funcionario = new Funcionario();
@@ -45,11 +45,13 @@ public class JustificativaAbonoControl {
 	private List<JustificativaAbono> justificativaAbonos = new ArrayList<JustificativaAbono>();
 	private List<JustificativaAbono> justificativaAbonosRH = new ArrayList<JustificativaAbono>();
 	private List<JustificativaAbono> justificativaAux = new ArrayList<JustificativaAbono>();
+	private List<Funcionario> listFuncionario = new ArrayList<Funcionario>();
 	  
 	@PostConstruct
 	   public void init(){
 		justificativa = new JustificativaAbono();
-	      listar(null);
+		listarUser();
+		listar(null);
 	   }
 	
 	public void buscarJustificativa(ActionEvent evt) {
@@ -61,7 +63,7 @@ public class JustificativaAbonoControl {
 			Usuario usuarioLogado = UsuarioLogadoControl.getUsuarioLogado();
 			justificativa.setUsuarioLogado(usuarioLogado);
 			justificativaAbonoDao.incluir(justificativa);
-			listar(evt);
+			listarUser();
          justificativaAbono = new JustificativaAbono();
 		} catch (Exception e) {
 		   UtilFaces.addMensagemFaces(e);
@@ -69,14 +71,22 @@ public class JustificativaAbonoControl {
 	}
 	public void alterar() {
 		try {
-			upload();
+			//UsuarioLogadoControl usuario = new UsuarioLogadoControl();
+			//Usuario user = usuario.getUsuarioLogado();
 			Usuario usuarioLogado = UsuarioLogadoControl.getUsuarioLogado();
+			listFuncionario = funcionarioDao.listar();
+			for(Funcionario funcionarioAux : listFuncionario) {
+				if(funcionarioAux.getNome().equals(usuarioLogado.getNome())) {
+					funcionario = funcionarioAux;
+				}
+			}
+			upload();
 			justificativa.setUsuarioLogado(usuarioLogado);
 			justificativa.setStatus("Recusado");
 			justificativaAux.add(justificativa);
 			funcionario.setJustificativasAbonos(justificativaAux);
 			funcionarioDao.alterar(funcionario);
-			listar(null);
+			listarUser();
 			justificativa = new JustificativaAbono(); 
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
@@ -131,7 +141,24 @@ public class JustificativaAbonoControl {
 	
 	public void listar(ActionEvent evt){
 		try {
-			justificativaAbonos = justificativaAbonoDao.listar();
+			justificativaAbonosRH = justificativaAbonoDao.listar();
+		} catch (Exception e) {
+		   UtilFaces.addMensagemFaces(e);
+		}
+	}
+	
+	public void listarUser(){
+		try {
+			Usuario usuarioLogado = UsuarioLogadoControl.getUsuarioLogado();
+			if(usuarioLogado != null) {
+				
+				for(JustificativaAbono justificativa : justificativaAbonoDao.listar()) {
+					if(justificativa.getUsuarioLogado().getNome().equals(usuarioLogado.getNome())) {
+						
+						justificativaAbonos.add(justificativa);
+					}
+				}
+			}
 		} catch (Exception e) {
 		   UtilFaces.addMensagemFaces(e);
 		}

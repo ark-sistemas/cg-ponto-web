@@ -14,6 +14,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
+
 
 @Entity
 public class JustificativaAbono implements Serializable{
@@ -33,6 +35,7 @@ public class JustificativaAbono implements Serializable{
 	private String descricao;
 	
 	@Lob
+	@Type(type = "org.hibernate.type.PrimitiveByteArrayBlobType")
 	private byte[] anexoDocumento;
 	
 	@Temporal(TemporalType.DATE)

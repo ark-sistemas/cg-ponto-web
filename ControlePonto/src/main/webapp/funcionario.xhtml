@@ -140,10 +140,12 @@
 
 				<h:outputText value="Papel"></h:outputText>
 				<p:selectOneMenu id="papel"
-					value="#{FuncionarioControl.funcionario.login.papeis}"
+					value="#{FuncionarioControl.papel.papel}"
 					style="width: 195px">
-					<f:selectItems value="#{FuncionarioControl.papeis}" var="papel" 
-					itemLabel="#{papel.papel}" itemValue="#{papel}" />
+<!-- 					<f:selectItems value="#{FuncionarioControl.papeis}" var="papel"  -->
+<!-- 					itemLabel="#{papel.papel}" itemValue="#{papel}" /> -->
+					<f:selectItem itemLabel="Admin" itemValue="ADMIN" />
+					<f:selectItem itemLabel="Usuario" itemValue="USUARIO" />
 				</p:selectOneMenu>
 				
 				<h:outputText value="Status"></h:outputText>
@@ -159,7 +161,7 @@
 				</p:selectOneMenu>
 
 				<h:outputText value="Senha"></h:outputText>
-				<p:inputText value="#{FuncionarioControl.login.senha}"
+				<p:inputText value="#{FuncionarioControl.senha}"
 					maxlength="20" required="true"
 					requiredMessage="Campo email deve ser preenchido.">
 				</p:inputText>
@@ -237,7 +239,7 @@
 					<f:facet name="header">
 						<h:outputText value="Papel"></h:outputText>
 					</f:facet>
-					<h:outputText value="#{func.papel }"></h:outputText>
+					<h:outputText value="#{func.mostrarPapel }"></h:outputText>
 				</p:column>
 				<p:column sortBy="#{func.status }">
 					<f:facet name="header">

@@ -107,6 +107,18 @@ public class Funcionario implements Serializable{
 	@ManyToOne
 	private Usuario login = new Usuario();
 	
+	public String getMostrarPapel() {
+		String aux = "";
+		for (int i = 0; i < login.getPapeis().size(); i++) {
+			PapelUsuario skin = login.getPapeis().iterator().next();
+			if(!skin.equals(null)) {
+				
+				aux =  skin.getPapel().name();
+			}
+		}
+		return aux;
+	}
+	
 	public Funcionario() {
 		super();
 	}
