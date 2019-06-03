@@ -43,11 +43,11 @@
         		</p:selectOneMenu> -->
 				
 				<!-- BOTAO ADICIONAR -->
-				<p:commandButton id="btnAdicionar" actionListener="#{JustificativaAbonoControl.alterar }"	value="Adicionar" ajax="false" update="justificativaAbono, panel"></p:commandButton>
+				<p:commandButton id="btnAdicionar" actionListener="#{JustificativaAbonoControl.alterar}"	value="Adicionar" ajax="false" update="justificativaAbono, panel"></p:commandButton>
 			</h:panelGrid>
 		</p:panel>
 		
-
+		<p:commandButton id="btnListar" actionListener="#{JustificativaAbonoControl.listarUser}"	value="Listar Justificativas" ajax="false" update="justificativaAbono, panel"></p:commandButton>
 		<!-- TABELA DE JUSTIFICATIVAS DE ABONO -->
 		<p:dataTable id="justificativaAbono" value="#{JustificativaAbonoControl.justificativaAbonos}" var="abono" width="100%" emptyMessage="Sem registros">
 			<f:facet name="header">

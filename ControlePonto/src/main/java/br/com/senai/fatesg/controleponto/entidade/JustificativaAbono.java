@@ -3,8 +3,10 @@ package br.com.senai.fatesg.controleponto.entidade;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,8 +36,10 @@ public class JustificativaAbono implements Serializable{
 	private String titulo;
 	private String descricao;
 	
+	//@Type(type = "org.hibernate.type.PrimitiveByteArrayBlobType")
+//	@Basic(fetch=FetchType.LAZY, optional=true)
 	@Lob
-	@Type(type = "org.hibernate.type.PrimitiveByteArrayBlobType")
+	@Type(type = "org.hibernate.type.ImageType")
 	private byte[] anexoDocumento;
 	
 	@Temporal(TemporalType.DATE)

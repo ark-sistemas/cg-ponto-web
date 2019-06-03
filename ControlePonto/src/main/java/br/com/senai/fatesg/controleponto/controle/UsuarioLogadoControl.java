@@ -59,6 +59,9 @@ public class UsuarioLogadoControl implements Serializable {
                 usuario.setSenhaNaoCriptografada(senhaAlteracao);
                 usuarioDao.alterar(usuario);
                 UtilFaces.addMensagemFaces("Senha alterada com sucesso ");
+                senhaAtual = "";
+                senhaAlteracao = "";
+                senhaAlteracaoNovamente = "";
             }else{
                 UtilFaces.addMensagemFaces("As senhas digitadas nÃ£o conferem, digite novamente");
             }

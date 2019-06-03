@@ -8,8 +8,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
@@ -19,6 +18,7 @@ import javax.servlet.http.Part;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.senai.fatesg.controleponto.entidade.Funcionario;
@@ -29,7 +29,8 @@ import br.com.senai.fatesg.controleponto.persistencia.JustificativaAbonoDao;
 
 //@Scope("conversation")
 //@SessionScoped
-@ViewScoped
+//@ViewScoped
+@RequestScoped
 @Named("JustificativaAbonoControl")
 public class JustificativaAbonoControl {
 	
@@ -138,7 +139,7 @@ public class JustificativaAbonoControl {
 		}
 		return boas.toByteArray();
 	}
-	
+	@Transactional
 	public void listar(ActionEvent evt){
 		try {
 			justificativaAbonosRH = justificativaAbonoDao.listar();
@@ -146,7 +147,7 @@ public class JustificativaAbonoControl {
 		   UtilFaces.addMensagemFaces(e);
 		}
 	}
-	
+	@Transactional
 	public void listarUser(){
 		try {
 			Usuario usuarioLogado = UsuarioLogadoControl.getUsuarioLogado();
