@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
-import br.com.senai.fatesg.controleponto.entidade.EnumPapelUsuario;
-import br.com.senai.fatesg.controleponto.entidade.PapelUsuario;
-import br.com.senai.fatesg.controleponto.entidade.Usuario;
-import br.com.senai.fatesg.controleponto.persistencia.UsuarioDao;
 import br.com.ambientinformatica.jpa.exception.PersistenciaException;
 import br.com.ambientinformatica.util.UtilHash;
 import br.com.ambientinformatica.util.UtilHash.Algoritimo;
 import br.com.ambientinformatica.util.UtilLog;
+import br.com.senai.fatesg.controleponto.entidade.EnumPapelUsuario;
+import br.com.senai.fatesg.controleponto.entidade.PapelUsuario;
+import br.com.senai.fatesg.controleponto.entidade.Usuario;
+import br.com.senai.fatesg.controleponto.persistencia.UsuarioDao;
 
 @Controller("UsuarioLogadoControl")
 @Scope("session")
