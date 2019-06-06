@@ -89,6 +89,7 @@ public class JustificativaAbonoControl {
 			funcionarioDao.alterar(funcionario);
 			listarUser();
 			justificativa = new JustificativaAbono(); 
+			//criar/chamar um metodo que grava o abono no registro de ponto
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}

@@ -21,9 +21,9 @@ import br.com.senai.fatesg.controleponto.persistencia.JornadaTrabalhoDao;
 
 
 //@Scope("conversation")
-//@Named("JornadaTrabalhoControl")
-//@ViewScoped
-public class JornadaTrabalhoControl {
+@Named("JornadaTrabalhoControl")
+@ViewScoped
+public class JornadaTrabalhoControlAndrezza {
 	
 
 	private JornadaTrabalho jornadaTrabalho = new JornadaTrabalho();
@@ -33,31 +33,14 @@ public class JornadaTrabalhoControl {
 
 	private List<JornadaTrabalho> jornadasTrabalhos = new ArrayList<JornadaTrabalho>();
 
-	private List<String> diasSemana = new ArrayList<String>();
 	private List<String> jornadas = new ArrayList<String>();
 	private String jornada;
 
 	@PostConstruct
-	public void init() {
-
-		preencherDiasDaSemana();
+	public void init() {		
 		preencherJornadas();
 		listar(null);
-	}
-
-	private void preencherDiasDaSemana() {
-		// TODO Auto-generated method stub
-		
-		diasSemana.add("Segunda");
-		diasSemana.add("Terça");
-		diasSemana.add("Quarta");
-		diasSemana.add("Quinta");
-		diasSemana.add("Sexta");
-		diasSemana.add("Sabádo");
-		diasSemana.add("Domingo");
-	}
-	
-	
+	}		
 	
 	private void preencherJornadas() {
 		// TODO Auto-generated method stub
@@ -65,9 +48,7 @@ public class JornadaTrabalhoControl {
 		for (int i = 0; i < jornadasTrabalhos.size(); i++) {
 			if(!jornadasTrabalhos.isEmpty()) {
 				jornadas.add(jornadasTrabalhos.get(i).getDescricao());
-			}
-				
-				
+			}				
 		}
 	}
 	
@@ -188,23 +169,12 @@ public class JornadaTrabalhoControl {
 		return jornadasTrabalhos;
 	}
 	// tst
-
-	public List<String> getDiasSemana() {
-		return diasSemana;
-	}
-
-	public void setDiasSemana(List<String> diasSemana) {
-		this.diasSemana = diasSemana;
-	}
-
+	
 	public List<JornadaTrabalho> getJornadasTrabalhos() {
 		return jornadasTrabalhos;
 	}
 
 	public void setJornadasTrabalhos(List<JornadaTrabalho> jornadasTrabalhos) {
 		this.jornadasTrabalhos = jornadasTrabalhos;
-	}
-
-	
-	
+	}	
 }
