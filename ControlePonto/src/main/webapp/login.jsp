@@ -20,6 +20,8 @@
 			document.getElementById("usuario").focus();
 		}
 	</script>
+	<!-- reCAPTCHA Libary -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 	<form action="j_spring_security_check" method="post">
@@ -61,6 +63,8 @@
 			                  
 			                  <input type="password" id="senha" name="j_password" class="form-control" placeholder="Senha" required autofocus style="width: 105%;"> <br>
 			                  <br>
+			            		<div class="g-recaptcha" data-sitekey="6LeoJKgUAAAAAIDiFBBcVLFKYywFdagXzrFqvz2o"></div>
+			            		<br>
 			                  <input class="btn btn-info" id="btnEntrar" type="submit" value="Entrar" style="width: 40%; margin-left: 35%"></input> 		                        
 			            	</div>
 			          	</div>
@@ -68,5 +72,6 @@
 	        	</div>                    
     	</div>
     </div>
+    </form>
 </body>
 </html>
