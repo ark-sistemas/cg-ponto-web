@@ -37,6 +37,9 @@ public class RegistroPonto{
 	@Column(name = "segunda_saida", length = 50, nullable = false)
 	private String segundaSaida;
 	
+	@Column(name = "email", length = 50, nullable = false)
+	private String email;
+	
 	private Long saldo;
 	
 		
@@ -44,7 +47,8 @@ public class RegistroPonto{
 	}
 	
 	public RegistroPonto(Long idRegistro, String data, Long idFuncionario, Long idcodigoJornadaTrabalho,
-			String primeiraEntrada, String primeiraSaida, String segundaEntrada, String segundaSaida, Long saldo) {
+			String primeiraEntrada, String primeiraSaida, String segundaEntrada, String segundaSaida, String email,
+			Long saldo) {
 		super();
 		this.idRegistro = idRegistro;
 		this.data = data;
@@ -54,9 +58,18 @@ public class RegistroPonto{
 		this.primeiraSaida = primeiraSaida;
 		this.segundaEntrada = segundaEntrada;
 		this.segundaSaida = segundaSaida;
+		this.email = email;
 		this.saldo = saldo;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public Long getIdRegistro() {
 		return idRegistro;
 	}

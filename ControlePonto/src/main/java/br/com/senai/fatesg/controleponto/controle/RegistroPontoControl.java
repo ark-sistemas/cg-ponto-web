@@ -63,10 +63,14 @@ public class RegistroPontoControl {
 		ajusteDeRegistros.clear();
 		try {
 			for(RegistroPonto aux : ajusteDeRegistroDao.listar()) {
-				if(this.funcionario.getId().longValue() == aux.getIdFuncionario()) {
+				if(this.funcionario.getEmail() == aux.getEmail()) {
 					this.ajusteDeRegistros.add(aux);
 					System.out.println(aux.getIdcodigoJornadaTrabalho()+" ID");
 				}
+//				if(this.funcionario.getId().longValue() == aux.getIdFuncionario()) {
+//					this.ajusteDeRegistros.add(aux);
+//					System.out.println(aux.getIdcodigoJornadaTrabalho()+" ID");
+//				}
 			}
 			
 		} catch (Exception e) {
