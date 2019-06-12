@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
-
 import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
