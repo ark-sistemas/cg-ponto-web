@@ -63,7 +63,7 @@ public class RegistroPontoControl {
 		ajusteDeRegistros.clear();
 		try {
 			for(RegistroPonto aux : ajusteDeRegistroDao.listar()) {
-				if(this.funcionario.getEmail() == aux.getEmail()) {
+				if(this.funcionario.getEmail().equals(aux.getEmail())) {
 					this.ajusteDeRegistros.add(aux);
 					System.out.println(aux.getIdcodigoJornadaTrabalho()+" ID");
 				}
