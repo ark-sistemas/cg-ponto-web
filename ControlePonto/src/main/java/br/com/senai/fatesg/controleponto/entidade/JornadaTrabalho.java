@@ -18,8 +18,8 @@ import org.hibernate.annotations.Cascade;
 
 
 
-@Entity
-@Table(name = "jornada")
+//@Entity
+//@Table(name = "jornada")
 public class JornadaTrabalho implements Serializable{
 
 	

@@ -21,8 +21,8 @@ import br.com.senai.fatesg.controleponto.persistencia.JornadaTrabalhoDao;
 
 
 //@Scope("conversation")
-@Named("JornadaTrabalhoControl")
-@ViewScoped
+//@Named("JornadaTrabalhoControl")
+//@ViewScoped
 public class JornadaTrabalhoControl {
 	
 
