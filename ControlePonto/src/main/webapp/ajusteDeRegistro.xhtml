@@ -123,7 +123,17 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-
+				<p:column headerText="Horas Diárias">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{ajuste.horasDiarias}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{ajuste.horasDiarias}" style="width:96%"
+								label="Horas Diárias" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
 				<p:column headerText="Saldo">
 					<p:cellEditor>
 						<f:facet name="output">

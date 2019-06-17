@@ -39,7 +39,34 @@ public class RegistroPontoControl {
 		listar(null);
 	}
 	
-		
+	public void calculoHoras() {
+		for (RegistroPonto rp : ajusteDeRegistros) {
+			Double somaPrimeira;
+			Double somaSegunda;
+			Double soma;
+			Double pe = (Double.parseDouble(rp.getPrimeiraEntrada().substring(0, 2)));
+			Double pe2 = Double.parseDouble(rp.getPrimeiraEntrada().substring(3, 5));
+			Double ps = Double.parseDouble(rp.getPrimeiraSaida().substring(0, 2));
+			Double ps2 = Double.parseDouble(rp.getPrimeiraSaida().substring(3, 5));
+			somaPrimeira = ((ps/60)+ps2) - ((pe/60)+pe2);
+			Double se = Double.parseDouble(rp.getSegundaEntrada().substring(0, 2));
+			Double se2 = Double.parseDouble(rp.getSegundaEntrada().substring(3, 5));
+			Double ss = Double.parseDouble(rp.getSegundaSaida().substring(0, 2));
+			Double ss2 = Double.parseDouble(rp.getSegundaSaida().substring(3, 5));
+			somaSegunda = ((ss/60)+ss2) - ((se/60)+se2);
+			soma = somaPrimeira + somaSegunda;
+			soma = soma * 60;
+			rp.setHorasDiarias(soma.longValue());
+			System.out.println(soma+" HORAS DIARIAS");
+		}
+	}
+	public void calcSaldo() {
+		Long aux = 0l;
+		for (RegistroPonto rp : ajusteDeRegistros) {
+			rp.setSaldo(rp.getHorasDiarias()+aux);
+			aux += rp.getHorasDiarias();
+		}
+	}
 	public void confirmar(ActionEvent evt) {
 		try {
 			ajusteDeRegistroDao.alterar(ajusteDeRegistro);
@@ -72,7 +99,8 @@ public class RegistroPontoControl {
 //					System.out.println(aux.getIdcodigoJornadaTrabalho()+" ID");
 //				}
 			}
-			
+			calculoHoras();
+			calcSaldo();
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}

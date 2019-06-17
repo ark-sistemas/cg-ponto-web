@@ -23,9 +23,12 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.senai.fatesg.controleponto.entidade.Funcionario;
 import br.com.senai.fatesg.controleponto.entidade.JustificativaAbono;
+import br.com.senai.fatesg.controleponto.entidade.RegistroPonto;
 import br.com.senai.fatesg.controleponto.entidade.Usuario;
+import br.com.senai.fatesg.controleponto.persistencia.AjusteDeRegistroDao;
 import br.com.senai.fatesg.controleponto.persistencia.FuncionarioDao;
 import br.com.senai.fatesg.controleponto.persistencia.JustificativaAbonoDao;
+import br.com.senai.fatesg.controleponto.util.Email;
 
 //@Scope("conversation")
 //@SessionScoped
@@ -42,6 +45,8 @@ public class JustificativaAbonoControl {
 	private JustificativaAbonoDao justificativaAbonoDao;
 	@Autowired
 	private FuncionarioDao funcionarioDao;
+	@Autowired
+	private AjusteDeRegistroDao registroPonto;
 	 
 	private List<JustificativaAbono> justificativaAbonos = new ArrayList<JustificativaAbono>();
 	private List<JustificativaAbono> justificativaAbonosRH = new ArrayList<JustificativaAbono>();
@@ -92,6 +97,35 @@ public class JustificativaAbonoControl {
 			//criar/chamar um metodo que grava o abono no registro de ponto
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
+		}
+	}
+	
+	public void abonar() {
+		RegistroPonto rp = new RegistroPonto();
+		if(!justificativa.getStatus().equals("Recusado")) {
+			
+			rp.setData(justificativa.getDataTermino());
+			rp.setEmail(justificativa.getUsuarioLogado().getLogin());
+			List<Funcionario> aux = new ArrayList<Funcionario>(); 
+			aux = funcionarioDao.listar();
+			for (Funcionario funAux : aux) {
+				if(funAux.getEmail().equals(justificativa.getUsuarioLogado().getLogin())) {
+					rp.setIdFuncionario(funAux.getId().longValue());
+					rp.setIdcodigoJornadaTrabalho(funAux.getJornada().getId().longValue());
+				}
+			}
+			
+			rp.setPrimeiraEntrada("Abonado");
+			rp.setPrimeiraSaida("Abonado");
+			rp.setSegundaEntrada("Abonado");
+			rp.setSegundaSaida("Abonado");
+			registroPonto.incluir(rp);
+			
+			justificativaAux.add(justificativa);
+			funcionario.setJustificativasAbonos(justificativaAux);
+			funcionarioDao.alterar(funcionario);
+			String corpoEmail = "Justificativa aceita";
+			Email.enviarEmail(justificativa.getUsuarioLogado().getLogin(), corpoEmail);
 		}
 	}
 	

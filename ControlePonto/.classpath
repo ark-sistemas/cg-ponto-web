@@ -30,5 +30,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/Faculdade/email/activation.jar"/>
+	<classpathentry kind="lib" path="D:/Faculdade/email/mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -27,8 +27,8 @@ import br.com.senai.fatesg.controleponto.util.ValidadorCPF;
 
 //@Scope("conversation")
 //@Scope(value = "session")
-@Named("FuncionarioControl")
 //@SessionScoped
+@Named("FuncionarioControl")
 @ViewScoped
 public class FuncionarioControl {
 
