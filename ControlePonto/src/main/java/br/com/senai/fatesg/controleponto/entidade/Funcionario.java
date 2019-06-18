@@ -75,9 +75,6 @@ public class Funcionario implements Serializable{
 	@Column(name = "cpf", length = 15, nullable = false)
 	private String cpf;
 
-	@Column(name = "bancoHoras", length = 20, nullable = false)
-	private String bancoHoras;
-
 	@Column(name="Status", length=1, nullable=false)
 	private char status;
 
@@ -122,7 +119,7 @@ public class Funcionario implements Serializable{
 	
 	public Funcionario(Integer id, String nome, String logradouro, String numero, Date dataNascimento,
 			String estadoCivil, String email, String complemento, String bairro, String cidade, String estado,
-			String cep, String telefone, String celular, String cpf, String bancoHoras, char status,
+			String cep, String telefone, String celular, String cpf, char status,
 			JornadaTrabalho jornada, List<JustificativaAbono> justificativasAbonos, Usuario login) {
 		super();
 		this.id = id;
@@ -139,8 +136,7 @@ public class Funcionario implements Serializable{
 		this.cep = cep;
 		this.telefone = telefone;
 		this.celular = celular;
-		this.cpf = cpf;
-		this.bancoHoras = bancoHoras;
+		this.cpf = cpf;		
 		this.status = status;
 		this.jornada = jornada;
 		this.justificativasAbonos = justificativasAbonos;
@@ -297,14 +293,6 @@ public class Funcionario implements Serializable{
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
-	}
-
-	public String getBancoHoras() {
-		return bancoHoras;
-	}
-
-	public void setBancoHoras(String bancoHoras) {
-		this.bancoHoras = bancoHoras;
 	}
 
 	public boolean getStatus() {

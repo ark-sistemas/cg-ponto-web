@@ -16,8 +16,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 
-
-
 @Entity
 @Table(name = "jornada")
 public class JornadaTrabalho implements Serializable{
@@ -31,31 +29,13 @@ public class JornadaTrabalho implements Serializable{
 	private Integer id;
 
 	@Column(name = "descricao", length = 50, nullable = false)
-	private String descricao;
-	
-	@Column(name = "diasDaSemana", length = 50, nullable = false)
-	private String[] diasDaSemana;
-
-	@Column(name = "inicioHorasDiaria", length = 8, nullable = false)
-	private String inicioHorasDiaria;
-
-	@Column(name = "terminoHorasDiaria", length = 8, nullable = false)
-	private String terminoHorasDiaria;
-	
-	@Column(name = "inicioHorasIntervalo", length = 8, nullable = false)
-	private String inicioHorasIntervalo;
-
-	@Column(name = "terminoHorasIntervalo", length = 8, nullable = false)
-	private String terminoHorasIntervalo;
+	private String descricao;	
 
 	@Column(name = "horasSemanais", length = 5, nullable = false)
 	private double horasSemanais;
 	
 	@Column(name = "horasMensais", length = 5, nullable = false)
 	private double horasMensais;
-	
-	private String mostraDias = "";
-	
 	
 	
 	@OneToMany(mappedBy = "jornada", orphanRemoval = false)
@@ -66,20 +46,13 @@ public class JornadaTrabalho implements Serializable{
 	private List<Funcionario> funcionarios = new ArrayList<Funcionario>();
 		
 	
-	public JornadaTrabalho(Integer id, String descricao, String[] diasDaSemana, String inicioHorasDiaria,
-			String terminoHorasDiaria, String inicioHorasIntervalo, String terminoHorasIntervalo, double horasSemanais,
-			double horasMensais, String mostraDias) {
+	public JornadaTrabalho(Integer id, String descricao, double horasSemanais, double horasMensais) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
-		this.diasDaSemana = diasDaSemana;
-		this.inicioHorasDiaria = inicioHorasDiaria;
-		this.terminoHorasDiaria = terminoHorasDiaria;
-		this.inicioHorasIntervalo = inicioHorasIntervalo;
-		this.terminoHorasIntervalo = terminoHorasIntervalo;
 		this.horasSemanais = horasSemanais;
 		this.horasMensais = horasMensais;
-		this.mostraDias = mostraDias;
+		
 	}
 	public JornadaTrabalho() {
 		super();
@@ -100,32 +73,6 @@ public class JornadaTrabalho implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-	public String[] getDiasDaSemana() {
-		return diasDaSemana;
-	}
-	
-	public void mostraDias()
-	{
-		for (int i = 0; i < diasDaSemana.length; i++) {
-			mostraDias+=diasDaSemana[i] + ", ";
-		}
-		
-	}
-	
-
-	public String getMostraDias() {
-		return mostraDias;
-	}
-
-	public void setMostraDias(String mostraDias) {
-		this.mostraDias = mostraDias;
-	}
-
-	public void setDiasDaSemana(String[] diasDaSemana) {
-		this.diasDaSemana = diasDaSemana;
-
-	}
 	
 	public double getHorasSemanais() {
 		return horasSemanais;
@@ -143,32 +90,6 @@ public class JornadaTrabalho implements Serializable{
 		this.horasMensais = horasMensais;
 	}
 	
-	
-	
-	public String getInicioHorasDiaria() {
-		return inicioHorasDiaria;
-	}
-	public void setInicioHorasDiaria(String inicioHorasDiaria) {
-		this.inicioHorasDiaria = inicioHorasDiaria;
-	}
-	public String getTerminoHorasDiaria() {
-		return terminoHorasDiaria;
-	}
-	public void setTerminoHorasDiaria(String terminoHorasDiaria) {
-		this.terminoHorasDiaria = terminoHorasDiaria;
-	}
-	public String getInicioHorasIntervalo() {
-		return inicioHorasIntervalo;
-	}
-	public void setInicioHorasIntervalo(String inicioHorasIntervalo) {
-		this.inicioHorasIntervalo = inicioHorasIntervalo;
-	}
-	public String getTerminoHorasIntervalo() {
-		return terminoHorasIntervalo;
-	}
-	public void setTerminoHorasIntervalo(String terminoHorasIntervalo) {
-		this.terminoHorasIntervalo = terminoHorasIntervalo;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

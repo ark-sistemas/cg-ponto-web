@@ -40,24 +40,9 @@ public class JornadaTrabalhoControl {
 	@PostConstruct
 	public void init() {
 
-		preencherDiasDaSemana();
 		preencherJornadas();
 		listar(null);
 	}
-
-	private void preencherDiasDaSemana() {
-		// TODO Auto-generated method stub
-		
-		diasSemana.add("Segunda");
-		diasSemana.add("Terça");
-		diasSemana.add("Quarta");
-		diasSemana.add("Quinta");
-		diasSemana.add("Sexta");
-		diasSemana.add("Sabádo");
-		diasSemana.add("Domingo");
-	}
-	
-	
 	
 	private void preencherJornadas() {
 		// TODO Auto-generated method stub
@@ -70,10 +55,8 @@ public class JornadaTrabalhoControl {
 				
 		}
 	}
-	
 	public void confirmar(ActionEvent evt) {
 		try {
-			jornadaTrabalho.mostraDias();
 			jornadaTrabalhoDao.alterar(jornadaTrabalho);
 			listar(evt);
 			jornadaTrabalho = new JornadaTrabalho();
@@ -81,16 +64,14 @@ public class JornadaTrabalhoControl {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
-	
 	public void confirmarTeste(JornadaTrabalho jornada) {
 		try {
-			jornadaTrabalho.mostraDias();
+			//jornadaTrabalho.mostraDias();
 			jornadaTrabalhoDao.alterar(jornada);
 		} catch (Exception e) {
 			UtilFaces.addMensagemFaces(e);
 		}
 	}
-	
 	public void incluirJornada(JornadaTrabalho jornada) {
 		try {
 			System.out.println("Jornada é: "+ jornada.getDescricao());
@@ -188,14 +169,7 @@ public class JornadaTrabalhoControl {
 		return jornadasTrabalhos;
 	}
 	// tst
-
-	public List<String> getDiasSemana() {
-		return diasSemana;
-	}
-
-	public void setDiasSemana(List<String> diasSemana) {
-		this.diasSemana = diasSemana;
-	}
+	
 
 	public List<JornadaTrabalho> getJornadasTrabalhos() {
 		return jornadasTrabalhos;

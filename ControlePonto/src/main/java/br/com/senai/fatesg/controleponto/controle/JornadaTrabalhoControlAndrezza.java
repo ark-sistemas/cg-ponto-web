@@ -1,4 +1,4 @@
-package br.com.senai.fatesg.controleponto.controle;
+/**package br.com.senai.fatesg.controleponto.controle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -177,4 +177,4 @@ public class JornadaTrabalhoControlAndrezza {
 	public void setJornadasTrabalhos(List<JornadaTrabalho> jornadasTrabalhos) {
 		this.jornadasTrabalhos = jornadasTrabalhos;
 	}	
-}
+}**/

@@ -111,7 +111,7 @@
 				
 				<h:outputText value="Email"></h:outputText>
 				<p:inputText value="#{FuncionarioControl.funcionario.email}"
-					maxlength="20" required="true"
+					maxlength="70" required="true"
 					requiredMessage="Campo email deve ser preenchido.">
 				</p:inputText>
 				
@@ -128,15 +128,6 @@
 				<p:inputMask value="#{FuncionarioControl.funcionario.celular }"
 					mask="(99) 99999-9999" required="true"
 					requiredMessage="Campo Celular deve ser preenchido."></p:inputMask>
-
-				<h:outputText value="Banco Horas"></h:outputText>
-				<p:selectOneMenu id="bancoHoras"
-					value="#{FuncionarioControl.funcionario.bancoHoras}"
-					style="width: 195px" required="false"
-					requiredMessage="Campo Banco de Horas deve ser preenchido.">
-					<f:selectItem itemLabel="Sim" itemValue="Sim" />
-					<f:selectItem itemLabel="Não" itemValue="Não" />
-				</p:selectOneMenu>
 
 				<h:outputText value="Papel"></h:outputText>
 				<p:selectOneMenu id="papel"
@@ -229,12 +220,6 @@
 					<h:outputText value="#{func.celular }"></h:outputText>
 				</p:column>
 
-				<p:column sortBy="#{func.bancoHoras }">
-					<f:facet name="header">
-						<h:outputText value="Banco Horas"></h:outputText>
-					</f:facet>
-					<h:outputText value="#{func.bancoHoras }"></h:outputText>
-				</p:column>
 				<p:column sortBy="#{func.papel }">
 					<f:facet name="header">
 						<h:outputText value="Papel"></h:outputText>

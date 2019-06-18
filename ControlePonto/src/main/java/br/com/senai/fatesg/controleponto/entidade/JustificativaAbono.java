@@ -44,16 +44,7 @@ public class JustificativaAbono implements Serializable{
 	
 	@Temporal(TemporalType.DATE)
 	private Date data;
-	
-	@Column(name = "horas_diaria_inicio")
-	private String horasDiariaInicio;
-	
-	@Column(name = "horas_diaria_termino")
-	private String horasDiariaTermino;
-	
-	@Column(name = "data_inicio")
-	private String dataInicio;
-	
+		
 	@Column(name = "data_termino")
 	private String dataTermino;
 	
@@ -96,24 +87,6 @@ public class JustificativaAbono implements Serializable{
 	}
 	public void setData(Date data) {
 		this.data = data;
-	}
-	public String getHorasDiariaInicio() {
-		return horasDiariaInicio;
-	}
-	public void setHorasDiariaInicio(String horasDiariaInicio) {
-		this.horasDiariaInicio = horasDiariaInicio;
-	}
-	public String getHorasDiariaTermino() {
-		return horasDiariaTermino;
-	}
-	public void setHorasDiariaTermino(String horasDiariaTermino) {
-		this.horasDiariaTermino = horasDiariaTermino;
-	}
-	public String getDataInicio() {
-		return dataInicio;
-	}
-	public void setDataInicio(String dataInicio) {
-		this.dataInicio = dataInicio;
 	}
 	public String getDataTermino() {
 		return dataTermino;
