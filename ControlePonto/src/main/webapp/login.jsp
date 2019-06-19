@@ -24,7 +24,7 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
-	<form action="j_spring_security_check" method="post">
+	<form id="login" action="j_spring_security_check" method="post">
 	<div class="wrapper">
 	<div class="header">
     	<div class="container">
@@ -48,7 +48,7 @@
 			          		<div class="span4 sidebar">  		                               
 								<%
 								if (request.getParameter("msg") != null) {
-									out.print("<span style='color: red;font-weight: bold;'>Usuário ou senha incorretos</span>");
+									out.print("<span style='color: red;font-weight: bold;'>Usuário ou senha incorretos ou Captcha não selecionado</span>");
 								}%>		
 			                  <!--  <h2 class="colorTextThree">Usuário</h2>
 			                 </p><input type="text" id="usuario" name="j_username" class="span3"/>  -->
@@ -63,7 +63,7 @@
 			                  
 			                  <input type="password" id="senha" name="j_password" class="form-control" placeholder="Senha" required autofocus style="width: 105%;"> <br>
 			                  <br>
-			            		<div class="g-recaptcha" data-sitekey="6LeoJKgUAAAAAIDiFBBcVLFKYywFdagXzrFqvz2o"></div>
+			            		<div id="captcha" class="g-recaptcha" data-sitekey="6LeoJKgUAAAAAIDiFBBcVLFKYywFdagXzrFqvz2o"></div>
 			            		<br>
 			                  <input class="btn btn-info" id="btnEntrar" type="submit" value="Entrar" style="width: 40%; margin-left: 35%"></input> 		                        
 			            	</div>

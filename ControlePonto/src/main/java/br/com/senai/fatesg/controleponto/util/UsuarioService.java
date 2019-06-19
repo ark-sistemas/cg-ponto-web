@@ -1,5 +1,6 @@
 package br.com.senai.fatesg.controleponto.util;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.GenericServlet;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.dao.DataAccessException;
@@ -18,11 +25,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import br.com.ambientinformatica.ambientjsf.util.UtilFaces;
 import br.com.ambientinformatica.util.UtilLog;
 
-public class UsuarioService implements UserDetailsService{
+public class UsuarioService extends HttpServlet implements UserDetailsService {
 
-   private DataSource dataSource;
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private DataSource dataSource;
 
    private void registrarHistoricoLogin(Connection con, String login) throws SQLException{
       Date agora = new Date();
@@ -36,9 +48,21 @@ public class UsuarioService implements UserDetailsService{
       pstmtHistorico.setString(2, login);
       pstmtHistorico.execute();
    }
-
+   public boolean doVali(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	   
+	   RequestDispatcher dispatcher //
+       = ((GenericServlet) request).getServletContext().getRequestDispatcher("/webapp/login.jsp");
+	   
+	   String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+	   System.out.println("gRecaptchaResponse= " + gRecaptchaResponse);
+	   
+           System.out.println("Captcha invalid!");
+       return VerifyUtils.verify(gRecaptchaResponse);
+	   
+   }
    @Override
    public UserDetails loadUserByUsername(String username) {
+	   boolean teste = false;
       try {
          Connection con = dataSource.getConnection();
          String sqlUsuario = "SELECT login AS username, senha as password, ativo AS enabled FROM usuario WHERE login = ?";
@@ -74,7 +98,14 @@ public class UsuarioService implements UserDetailsService{
                            } finally {
                               rsPapeis.close();
                            }
-                           return user;
+                           HttpServletRequest request = UtilFaces.getRequest();
+                           String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+                           if(VerifyUtils.verify(gRecaptchaResponse)) {
+                        	   return user;
+                           }else {
+                        	   throw new UsernameNotFoundException("Captcha não selecionado");
+//                        	   return null;
+                           }
                         } finally {
                            rsPapeis.close();
                         }
